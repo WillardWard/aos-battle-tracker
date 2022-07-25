@@ -1,0 +1,130 @@
+[
+  {
+    "armyName" : "Beasts of Chaos",
+    "grandStrat" : ["Protect the Herdstone"]
+  },
+  {
+    "armyName" : "Blades of Khorne",
+    "grandStrat" : ["The Blood Legions March"]
+  },
+  {
+    "armyName" : "Disciples of Tzeentch",
+    "grandStrat" : []
+  },
+  {
+    "armyName" : "Hedonites of Slaanesh",
+    "grandStrat" : ["Coveted Riches"]
+  },
+  {
+    "armyName" : "Legion of the First Prince",
+    "grandStrat" : []
+  },
+  {
+    "armyName" : "Maggotkin of Nurgle",
+    "grandStrat" : ["Blessed Desecration",
+                    "Corrupt Arcane Nexus",
+                    "Spread Rampant Disease",
+                    "Tend the Garden"]
+  },
+  {
+    "armyName" : "Skaven",
+    "grandStrat" : ["Arch-corruptors of the Mortal Realms",
+                    "Clawmasters",
+                    "Masters of Execution",
+                    "Shapers of Beast-flesh",
+                    "Warpstone Weaponmasters"]
+  },
+  {
+    "armyName" : "Slaves to Darkness",
+    "grandStrat" : ["Dominating Presence"]
+  },
+  {
+    "armyName" : "Flesh-Eater Courts",
+    "grandStrat" : ["Growing Kingdom"]
+  },
+  {
+    "armyName" : "Nighthaunt",
+    "grandStrat" : ["A Soul to Claim",
+                    "Dismantle the Brave",
+                    "Feed on Terror",
+                    "Fright or Flight"]
+  },
+  {
+    "armyName" : "Ossiarch Bonereapers",
+    "grandStrat" : ["Unrelenting Efficiency"]
+  },
+  {
+    "armyName" : "Soulblight Gravelords",
+    "grandStrat" : ["Lust for Domination"]
+  },
+  {
+    "armyName" : "Gloomspite Gitz",
+    "grandStrat" : []
+  },
+  {
+    "armyName" : "Ogor Mawtribes",
+    "grandStrat" : []
+  },
+  {
+    "armyName" : "Orruk Warclans",
+    "grandStrat" : ["In and Out, Ladz",
+                    "Get Dem Bones!",
+                    "Krump 'Em All!",
+                    "Show 'Em Who's Boss!",
+                    "Waaagh!"]
+  },
+  {
+    "armyName" : "Sons of Behemat",
+    "grandStrat" : ["Make the Lands Tremble!"]
+  },
+  {
+    "armyName" : "Cities of Sigmar",
+    "grandStrat" : ["Mighty Beachhead"]
+  },
+  {
+    "armyName" : "Daughters of Khaine",
+    "grandStrat" : ["Bloodbath",
+                    "Bloodthirsty Zealots",
+                    "Conquered in the Name of Khaine",
+                    "Naught But Destruction"]
+  },
+  {
+    "armyName" : "Fyreslayers",
+    "grandStrat" : ["Defend the Lodge",
+                    "Guarded Lineage",
+                    "Masters of the Forge",
+                    "Oath-takers and Skull-breakers"]
+  },
+  {
+    "armyName" : "Idoneth Deepkin",
+    "grandStrat" : ["Akhelian Pursuit",
+                    "Dominion of the Deep Ones",
+                    "Namarti Assault",
+                    "The Creeping Gloomtide"]
+  },
+  {
+    "armyName" : "Kharadron Overlords",
+    "grandStrat" : ["Spend Shares to Make Shares"]
+  },
+  {
+    "armyName" : "Lumineth Realm-lords",
+    "grandStrat" : []
+  },
+  {
+    "armyName" : "Seraphon",
+    "grandStrat" : ["Continuous Expansion",
+                    "The Astromatrix"]
+  },
+  {
+    "armyName" : "Stormcast Eternals",
+    "grandStrat" : ["Draconith Defiance",
+                    "Pillars of Victory",
+                    "Sacred Charge"]
+  },
+  {
+    "armyName" : "Sylvaneth",
+    "grandStrat" : ["Chorus of the Woodlands",
+                    "The Roots of Victory",
+                    "Vengeance and Spite"]
+  }
+]

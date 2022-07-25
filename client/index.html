@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Warhammer Battle Tracker</title>
+      <link rel="stylesheet" href="index.css"/>
+    </head>
+    <body>
+      <header>
+        <h1 class="site-title">Warhammer Age of Sigmar Battle Tracker</h1>
+      </header>
+      <main>
+        <div id="player-forms">
+          <form id="p1-form">
+            <label for="p1-name">Player 1 name:</label>
+            <input type="text" id="p1-name" name="p1-name">
+            
+            <label for="p1-army-select">Select Army:</label>
+            <select id="p1-army-select" name="p1-army-select"></select>
+            
+            <button id="get-p1-info">Submit</button>
+          </form>
+
+          <form id="p2-form">
+            <label for="p2-name">Player 2 name:</label>
+            <input type="text" id="p2-name" name="p2-name">
+            
+            <label for="p2-army-select">Select Army:</label>
+            <select id="p2-army-select" name="p2-army-select"></select>
+            
+            <button id="get-p2-info">Submit</button>
+          </form>
+        </div>
+
+        <div id="round-nav-btns">
+          <h3 id="round-nav-label">Select BattleRound:</h1>
+          <button id="round-1" type="button" hidden>1</button>
+          <button id="round-2" type="button" hidden>2</button>
+          <button id="round-3" type="button" hidden>3</button>
+          <button id="round-4" type="button" hidden>4</button>
+          <button id="round-5" type="button" hidden>5</button>
+        </div>
+
+        <div id="score-totals">
+          <section id="p1-score-total">
+            <h3 id="p1-score-total-label">Player 1 Score Total:</h3>
+            <h2 id="p1-score-total-value">0</h2>
+          </section>
+
+          <section id="p2-score-total">
+            <h3 id="p2-score-total-label">Player 2 Score Total:</h3>
+            <h2 id="p2-score-total-value">0</h2>
+          </section>
+        </div>
+
+      </main>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="main.js"></script>
+    </body>
+  </html>
