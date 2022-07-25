@@ -16,6 +16,7 @@ const {
   getResults,
   clearRoundData,
   updateRoundData,
+  getAllRounds,
 } = require('./controller')
 
 
@@ -28,6 +29,7 @@ app.delete('/api/battletracker/:round', deleteBattleRound)
 app.get('/api/battletracker/results', getResults); 
 app.delete('/api/battletracker', clearRoundData)
 app.put('/api/battletracker/:round', updateRoundData)
+app.get('/api/allrounds', getAllRounds);
 
 
 

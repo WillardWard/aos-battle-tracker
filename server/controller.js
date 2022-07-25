@@ -86,7 +86,7 @@ const confirmInfo = (req, res) => {
 }
 
 const updateRoundData = (req, res) => {
-  // console.log(playerInfo)
+  console.log(`updateRoundData globalRound = ${globalRound}`)
 
   let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
 
@@ -113,12 +113,13 @@ const updateRoundData = (req, res) => {
   // playerInfo.p2TotalScore += parseInt(p2Score)
 
   // console.log(battleRoundList[round])
-  console.log(playerInfo)
+  // console.log(playerInfo)
   
   res.status(200).send(playerInfo);
 }
 
 const createRoundCard = (req, res) => {
+  console.log(`createRoundCard globalRound = ${globalRound}`)
   // if(globalRound === 0){
   //   battleRoundList.splice(1);
   //   globalRound++
@@ -228,13 +229,19 @@ const getResults = (req, res) => {
 }
 
 const clearRoundData = (req, res) => {
+  console.log('Server clearing data')
   battleRoundList.splice(1);
   // console.log(battleRoundList[0])
   globalRound = 1;
   res.status(200)
 }
 
-
+const getAllRounds = (req, res) => {
+  let roundList = []
+  battleRoundList.forEach(element => roundList.push(element));
+  console.log(roundList)
+  res.status(200).send(roundList)
+}
 
 
 module.exports = {
@@ -247,4 +254,5 @@ module.exports = {
   getResults,
   clearRoundData,
   updateRoundData,
+  getAllRounds,
 }

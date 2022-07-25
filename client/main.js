@@ -21,6 +21,9 @@ const round2Btn = document.getElementById('round-2')
 const round3Btn = document.getElementById('round-3')
 const round4Btn = document.getElementById('round-4')
 const round5Btn = document.getElementById('round-5')
+const scoreTotalCard = document.getElementById('score-totals')
+const clearDataBtn = document.getElementById('clear-data')
+const fetchDataBtn = document.getElementById('fetch-data')
 
 let roundData = {
   p1Name : "Player 1",
@@ -116,7 +119,7 @@ const confirmInfo = (e) => {
   if(btnPath.id == 'p2-form'){
   playerInfo.player1 = false
   playerInfo.playerGrand = btnPath[2].value
-  console.log(btnPath[2].value)
+  // console.log(btnPath[2].value)
   }
 
   axios
@@ -173,8 +176,11 @@ const displayRound = (bodyObj) => {
     p2GrandStrat, p1BattleTactic, p2BattleTactic,
     battlePlan, p1Score,p2Score, p1TotalScore, p2TotalScore, p1GoesFirst } = bodyObj;
 
-console.log(p1TotalScore)
-console.log(p2TotalScore)
+  
+  scoreTotalCard.hidden = false;
+
+// console.log(p1TotalScore)
+// console.log(p2TotalScore)
 
 
 /// create battle round card and buttons
@@ -271,15 +277,28 @@ console.log(p2TotalScore)
   
 }
 
-const clearRoundData = () => {
-  axios
+const clearRoundData = (event) => {
+  // console.log(event.target)
+  let path = event.target.id
+  if(path === 'clear-data'){
+    console.log('Front-end clearing data..')
+    playerForms.lastElementChild.remove()
+    axios
     .delete(baseURL)
     .then((res) => {
-      createBattleRoundCard();
+      console.log('Data cleared')
     })
+  }else {
+    axios
+      .delete(baseURL)
+      .then((res) => {
+        createBattleRoundCard();
+      })
+  }
 }
 
 const updateRound = (round) => {
+  console.log(round)
   path = round.composedPath()
   let roundPath = path[1].firstChild.innerHTML.charAt(12);
 
@@ -313,15 +332,16 @@ const updateRound = (round) => {
 
 const storePlayerInfo = (objInfo) => {
   roundData = Object.assign(objInfo)
-  console.log(roundData)
+  // console.log(roundData)
 }
 
 const createBattleRoundCard = (round) => {
-  console.log(round)
+  // console.log(round)
   const btnCheck = round.target.innerHTML
+  console.log(btnCheck)
 
   if(btnCheck === 'Begin Game'){
-    clearRoundData();
+    clearRoundData(round);
     axios
     .post(`${baseURL}/${round}`)
     .then((res) => {
@@ -351,13 +371,53 @@ const createBattleRoundCard = (round) => {
 
 const getBattleRound = (roundBtn) => {
   // console.log(roundBtn.target.innerHTML);
+  let path = roundBtn.target.id
+  console.log(path)
   let round = roundBtn.target.innerHTML;
+  if(path === 'fetch-data') {
+    axios
+      .get(`http://localhost:4004/api/allrounds`)
+      .then((res) => {
+        // console.log(res.data)
+        showFetchedData(res.data)
+      })
+  }else {
+    axios
+      .get(`${baseURL}/${round}`)
+      .then((res) => {
+        displayRound(res.data);
+      })
+  }
+}
 
-  axios
-    .get(`${baseURL}/${round}`)
-    .then((res) => {
-      displayRound(res.data);
-    })
+const showFetchedData = (objArr) => {
+  objArr.forEach(element => console.log(element))
+
+  const dataTable = document.createElement('table')
+  dataTable.id = 'data-table'
+  
+  objArr.forEach(element => {
+    let tableRow1 = document.createElement('tr')
+    let tableRow2 = document.createElement('tr')
+    
+    for (const [key, value] of Object.entries(element)) {
+      let tableHeader = document.createElement('th')
+      let tableCell = document.createElement('td')
+      tableHeader.textContent = `${key}`
+      tableRow1.appendChild(tableHeader)
+      tableCell.textContent = `${value}`
+      tableRow2.appendChild(tableCell)
+    }
+    dataTable.appendChild(tableRow1)
+    dataTable.appendChild(tableRow2)
+  })
+  
+  if ((playerForms.lastElementChild.id) == 'data-table'){
+    playerForms.removeChild(playerForms.lastElementChild)
+    playerForms.appendChild(dataTable)
+  }else {
+    playerForms.appendChild(dataTable)
+  }
 }
 
 
@@ -567,7 +627,8 @@ const createCmdPtCard = (player) => {
     p1ArmySelect.addEventListener('click', selectArmy);
     p2ArmySelect.addEventListener('click', selectArmy);
 
-    
+    clearDataBtn.addEventListener('click', clearRoundData);
+    fetchDataBtn.addEventListener('click', getBattleRound);
     
 
     round1Btn.addEventListener('click', getBattleRound);
