@@ -15,6 +15,7 @@ const p1TotalLabel = document.getElementById('p1-score-total-label')
 const p2TotalLabel = document.getElementById('p2-score-total-label')
 let p1TotalValue = document.getElementById('p1-score-total-value')
 let p2TotalValue = document.getElementById('p2-score-total-value')
+const roundNavBtns = document.getElementById('round-nav-btns')
 const round1Btn = document.getElementById('round-1')
 const round2Btn = document.getElementById('round-2')
 const round3Btn = document.getElementById('round-3')
@@ -194,6 +195,7 @@ console.log(p2TotalScore)
   p1RoundCard.id = 'p1-round-card'
   p1ScoreInput.id = 'p1-score-input'
   p1ScoreInput.type = 'number'
+  p1ScoreInput.value = p1Score
   p1ScoreLabel.htmlFor = 'p1-score-input'
   p1BattleTacticSelect.id = 'p1-battle-tactic-select'
   p1BattleTacticLabel.htmlFor = 'p1-battle-tactic-select'
@@ -211,6 +213,7 @@ console.log(p2TotalScore)
   p2RoundCard.id = 'p2-round-card'
   p2ScoreInput.id = 'p2-score-input'
   p2ScoreInput.type = 'number'
+  p2ScoreInput.value = p2Score
   p2ScoreLabel.htmlFor = 'p2-score-input'
   p2BattleTacticSelect.id = 'p2-battle-tactic-select'
   p2BattleTacticLabel.htmlFor = 'p2-battle-tactic-select'
@@ -232,6 +235,7 @@ console.log(p2TotalScore)
   })
 
 /// un-hide round buttons
+  roundNavBtns.hidden = false
   roundBtnArr = [round1Btn, round2Btn, round3Btn, round4Btn, round5Btn]
 
   for(i = 0; i <= round-1; i++){
@@ -295,7 +299,7 @@ const createBattleRoundCard = (round) => {
 }
 
 const getBattleRound = (roundBtn) => {
-  console.log(roundBtn.target.innerHTML);
+  // console.log(roundBtn.target.innerHTML);
   let round = roundBtn.target.innerHTML;
 
   axios
@@ -325,19 +329,19 @@ const updateRound = (round) => {
     p2Score : p2ScorePath,
   }
 
-  console.log(roundInfo)
+  // console.log(roundInfo)
   
   axios
     .put(`${baseURL}/${roundPath}`, roundInfo)
-    .then((res) => {
-      // createBattleRoundCard();
-    })
+    .then()
 }
 
 const deleteRound = (currRound) => {
   let thisRound = currRound.target.innerHTML
   // console.log(thisRound.charAt(13))
   let round = thisRound.charAt(13);
+  roundBtnArr = [round1Btn, round2Btn, round3Btn, round4Btn, round5Btn]
+  roundBtnArr[round-1].hidden = true;
 
   axios
     .delete(`${baseURL}/${round}`)

@@ -16,7 +16,7 @@ let playerInfo = {
   p2TotalScore : 0,
 }
 
-let globalRound = 0
+let globalRound = 1
 
 let battleRoundList = [
   {
@@ -93,25 +93,31 @@ const createRoundCard = (req, res) => {
 
   // console.log(req)
   
-  let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, p1TotalScore, p2TotalScore } = playerInfo
+  // let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, p1TotalScore, p2TotalScore } = playerInfo
+
+  // console.log(`createRoundCard playerInfo.p1Army: ${playerInfo.p1Army}`)
+  // console.log(`createRoundCard playerInfo.p1TotalScore: ${playerInfo.p1TotalScore}`)
+
 
   let newBattleRound = { 
     round : globalRound, 
-    p1Name, 
-    p2Name, 
-    p1Army, 
-    p2Army, 
-    p1GrandStrat,                   
-    p2GrandStrat, 
+    p1Name : playerInfo.p1Name, 
+    p2Name : playerInfo.p2Name, 
+    p1Army : playerInfo.p1Army, 
+    p2Army : playerInfo.p2Army, 
+    p1GrandStrat : playerInfo.p1GrandStrat,                   
+    p2GrandStrat : playerInfo.p2GrandStrat, 
     p1BattleTactic : 'BattleTacticList', 
     p2BattleTactic : 'BattleTacticList',                  
-    battlePlan : 'Battle Plan', 
+    battlePlan : playerInfo.battlePlan, 
     p1Score : 0,
     p2Score : 0, 
-    p1TotalScore : p1TotalScore,
-    p2TotalScore : p2TotalScore,
+    p1TotalScore : playerInfo.p1TotalScore,
+    p2TotalScore : playerInfo.p2TotalScore,
     p1GoesFirst : true 
   };
+
+  // console.log(`createRoundCard newBattleRound.p1TotalScore: ${newBattleRound.p1TotalScore}`)
 
   if(globalRound <= 5){
    battleRoundList.push(newBattleRound)
@@ -128,7 +134,7 @@ const createRoundCard = (req, res) => {
 const getBattleRound = (req, res) => {
   // console.log(req.params)
   let {round} = req.params
-  console.log(battleRoundList[round])
+  // console.log(battleRoundList[round])
 
 
   res.status(200).send(battleRoundList[round])
@@ -162,6 +168,7 @@ const deleteBattleRound = (req, res) => {
   // battleRoundList.forEach(element => {
   //   // console.log(element)
   // });
+  globalRound = index
 
   if(index > 1){
     res.status(200).send(battleRoundList[index-1])
@@ -211,10 +218,10 @@ const updateRoundData = (req, res) => {
   // playerInfo.p1TotalScore += parseInt(p1Score)
   // playerInfo.p2TotalScore += parseInt(p2Score)
 
-  console.log(battleRoundList[round])
-  console.log(playerInfo)
+  // console.log(battleRoundList[round])
+  // console.log(playerInfo)
   
-  res.status(200).send(battleRoundList[round]);
+  res.status(200).send();
 }
 
 
