@@ -158,7 +158,10 @@ const promptBattle = (bodyObj) =>{
 const displayRound = (bodyObj) => {
   let { round, p1Name, p2Name, p1Army, p2Army, p1GrandStrat,
     p2GrandStrat, p1BattleTactic, p2BattleTactic,
-    battlePlan, p1Score,p2Score, p1GoesFirst } = bodyObj;
+    battlePlan, p1Score,p2Score, p1TotalScore, p2TotalScore, p1GoesFirst } = bodyObj;
+
+console.log(p1TotalScore)
+console.log(p2TotalScore)
 
 
 /// create battle round card and buttons
@@ -178,8 +181,8 @@ const displayRound = (bodyObj) => {
   finishGameBtn.innerHTML = 'Finish Game'
 
 /// set p1 and p2 scores to display  
-  p1TotalValue.innerHTML = p1Score;
-  p2TotalValue.innerHTML = p2Score;
+  p1TotalValue.textContent = p1TotalScore;
+  p2TotalValue.textContent = p2TotalScore;
 
 /// create p1 round card
   const p1RoundCard = document.createElement('form')
@@ -222,37 +225,13 @@ const displayRound = (bodyObj) => {
   
 /// update score totals
   p1ScoreInput.addEventListener('input', (e) => {
-    p1TotalValue.innerHTML = parseInt(e.target.value) + parseInt(p1Score)
+    p1TotalValue.textContent = parseInt(e.target.value) + parseInt(p1TotalScore)
   })
   p2ScoreInput.addEventListener('input', (e) => {
-    p2TotalValue.innerHTML = parseInt(e.target.value) + parseInt(p2Score)
+    p2TotalValue.textContent = parseInt(e.target.value) + parseInt(p2TotalScore)
   })
 
 /// un-hide round buttons
-  // if(round == 1){
-  //   round1Btn.hidden = false;
-  // }else if(round == 2){
-  //   round1Btn.hidden = false;
-  //   round2Btn.hidden = false;
-  // }else if(round == 3){
-  //   round1Btn.hidden = false;
-  //   round2Btn.hidden = false;
-  //   round3Btn.hidden = false;
-  // }else if(round == 4){
-  //   round1Btn.hidden = false;
-  //   round2Btn.hidden = false;
-  //   round3Btn.hidden = false;
-  //   round4Btn.hidden = false;
-  // }else if(round == 5){
-  //   round1Btn.hidden = false;
-  //   round2Btn.hidden = false;
-  //   round3Btn.hidden = false;
-  //   round4Btn.hidden = false;
-  //   round5Btn.hidden = false;
-  // }else{
-  //   console.log(`Something went wrong showing round buttons, current round: ${round}`)
-  // }
-
   roundBtnArr = [round1Btn, round2Btn, round3Btn, round4Btn, round5Btn]
 
   for(i = 0; i <= round-1; i++){
@@ -263,10 +242,10 @@ const displayRound = (bodyObj) => {
   playerForms.replaceChildren(battleCard);
   if(round != 5){
     battleCard.append(nextRoundBtn)
-    nextRoundBtn.addEventListener('click', updateRound)
+    nextRoundBtn.addEventListener('click', createBattleRoundCard)
   }else if(round === 5){
     battleCard.append(finishGameBtn)
-    finishGameBtn.addEventListener('click', updateRound)
+    finishGameBtn.addEventListener('click', createBattleRoundCard)
   }
   createCmdPtCard(p1Name)
   createCmdPtCard(p2Name)
@@ -290,10 +269,7 @@ const createBattleRoundCard = (round) => {
 
   if(btnCheck === 'Begin Game'){
     clearRoundData();
-  }
-
-  // round = 1;
-  axios
+    axios
     .post(`${baseURL}/${round}`)
     .then((res) => {
       // console.log(round.target.textContent)
@@ -303,6 +279,19 @@ const createBattleRoundCard = (round) => {
         displayRound(res.data);
       }
     })
+  }else{
+    updateRound(round);
+    axios
+    .post(`${baseURL}/${round}`)
+    .then((res) => {
+      // console.log(round.target.textContent)
+      if((round.target.textContent) == 'Finish Game'){
+        displayResults(res.data)
+      }else{
+        displayRound(res.data);
+      }
+    })
+  } 
 }
 
 const getBattleRound = (roundBtn) => {
@@ -318,12 +307,30 @@ const getBattleRound = (roundBtn) => {
 
 const updateRound = (round) => {
   path = round.composedPath()
-  let btnPath = path[1].firstChild.innerHTML.charAt(12);
+  let roundPath = path[1].firstChild.innerHTML.charAt(12);
+
+  let p1Path = path[1].children[1]
+  let p1ScorePath = p1Path[0].value
+  let p1BattleTacticPath = p1Path[1].value
+
+  let p2Path = path[1].children[2]
+  let p2ScorePath = p2Path[0].value
+  let p2BattleTacticPath = p2Path[1].value
+
+  let roundInfo = {
+    round : roundPath,
+    p1BattleTactic : p1BattleTacticPath,
+    p2BattleTactic : p2BattleTacticPath,
+    p1Score : p1ScorePath,
+    p2Score : p2ScorePath,
+  }
+
+  console.log(roundInfo)
   
   axios
-    .put(`${baseURL}/${btnPath}`)
-    .then(() => {
-      createBattleRoundCard();
+    .put(`${baseURL}/${roundPath}`, roundInfo)
+    .then((res) => {
+      // createBattleRoundCard();
     })
 }
 
@@ -339,15 +346,6 @@ const deleteRound = (currRound) => {
     })
 }
 
-// const finishGame = () => {
-//   axios
-//     .get(`${baseURL}/results`)
-//     .then((res) => {
-//       console.log(res)
-//       console.log(res.data)
-//       displayResults(res.data);
-//     })
-// }
 
 const displayResults = (bodyObj) => {
   let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, 
@@ -381,17 +379,17 @@ const displayResults = (bodyObj) => {
   
   p1GrandCheck.addEventListener('click', () => {
     if(p1GrandCheck.checked){
-      p1TotalValue.innerHTML = p1TotalScore + 2
-      p1ResultsText.innerHTML = `${p1Name}'s ${p1Army} scored ${p1TotalValue.innerHTML} this game`
+      p1TotalValue.textContent = p1TotalScore + 2
+      p1ResultsText.innerHTML = `${p1Name}'s ${p1Army} scored ${p1TotalValue.textContent} this game`
     }else{
-      p1TotalValue.innerHTML = p1TotalScore
-      p1ResultsText.innerHTML = `${p1Name}'s ${p1Army} scored ${p1TotalValue.innerHTML} this game`
+      p1TotalValue.textContent = p1TotalScore
+      p1ResultsText.innerHTML = `${p1Name}'s ${p1Army} scored ${p1TotalValue.textContent} this game`
     }
-    if(p1TotalValue.innerHTML > p2TotalValue.innerHTML){
+    if(p1TotalValue.textContent > p2TotalValue.textContent){
       winnerText.innerHTML = `${p1Name} is Victorious!`
-    }else if(p1TotalValue.innerHTML < p2TotalValue.innerHTML){
+    }else if(p1TotalValue.textContent < p2TotalValue.textContent){
       winnerText.innerHTML = `${p2Name} is Victorious!`
-    }else if(p1TotalValue.innerHTML == p2TotalValue.innerHTML){
+    }else if(p1TotalValue.textContent == p2TotalValue.textContent){
       winnerText.innerHTML = `This game ends in a draw!`
     }else{
       winnerText.innerHTML = `These scores just aren't adding up!`
@@ -400,17 +398,17 @@ const displayResults = (bodyObj) => {
 
   p2GrandCheck.addEventListener('click', () => {
     if(p2GrandCheck.checked){
-      p2TotalValue.innerHTML = p2TotalScore + 2
-      p2ResultsText.innerHTML = `${p2Name}'s ${p2Army} scored ${p2TotalValue.innerHTML} this game`
+      p2TotalValue.textContent = p2TotalScore + 2
+      p2ResultsText.innerHTML = `${p2Name}'s ${p2Army} scored ${p2TotalValue.textContent} this game`
     }else{
-      p2TotalValue.innerHTML = p2TotalScore
-      p2ResultsText.innerHTML = `${p2Name}'s ${p2Army} scored ${p2TotalValue.innerHTML} this game`
+      p2TotalValue.textContent = p2TotalScore
+      p2ResultsText.innerHTML = `${p2Name}'s ${p2Army} scored ${p2TotalValue.textContent} this game`
     }
-    if(p1TotalValue.innerHTML > p2TotalValue.innerHTML){
+    if(p1TotalValue.textContent > p2TotalValue.textContent){
       winnerText.innerHTML = `${p1Name} is Victorious!`
-    }else if(p1TotalValue.innerHTML < p2TotalValue.innerHTML){
+    }else if(p1TotalValue.textContent < p2TotalValue.textContent){
       winnerText.innerHTML = `${p2Name} is Victorious!`
-    }else if(p1TotalValue.innerHTML == p2TotalValue.innerHTML){
+    }else if(p1TotalValue.textContent == p2TotalValue.textContent){
       winnerText.innerHTML = `This game ends in a draw!`
     }else{
       winnerText.innerHTML = `These scores just aren't adding up!`
@@ -426,10 +424,6 @@ const displayResults = (bodyObj) => {
   p1ResultsSection.appendChild(p1ResultsText)
   p2ResultsSection.appendChild(p2ResultsText)
   resultsPage.append(winnerText)
-
-
-
-
 }
 
 // const whoGoesFirst = (p1Name, p2Name) => {
