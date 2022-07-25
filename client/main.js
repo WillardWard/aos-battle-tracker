@@ -22,6 +22,18 @@ const round3Btn = document.getElementById('round-3')
 const round4Btn = document.getElementById('round-4')
 const round5Btn = document.getElementById('round-5')
 
+let roundData = {
+  p1Name : "Player 1",
+  p2Name : "Player 2",
+  p1Army : "P1 Army",
+  p2Army : "P2 Army",
+  p1GrandStrat : "P1 Grand",
+  p2GrandStrat : "P2 Grand",
+  battlePlan : "Battle Plan 1",
+  p1TotalScore : 0,
+  p2TotalScore : 0,
+}
+
 
 
 const armySelect = (armyList, armyClick) => {
@@ -267,8 +279,45 @@ const clearRoundData = () => {
     })
 }
 
+const updateRound = (round) => {
+  path = round.composedPath()
+  let roundPath = path[1].firstChild.innerHTML.charAt(12);
+
+  let p1Path = path[1].children[1]
+  let p1ScorePath = p1Path[0].value
+  let p1BattleTacticPath = p1Path[1].value
+
+  let p2Path = path[1].children[2]
+  let p2ScorePath = p2Path[0].value
+  let p2BattleTacticPath = p2Path[1].value
+
+  let roundInfo = {
+    round : roundPath,
+    p1BattleTactic : p1BattleTacticPath,
+    p2BattleTactic : p2BattleTacticPath,
+    p1Score : p1ScorePath,
+    p2Score : p2ScorePath,
+  }
+
+  console.log(roundInfo)
+  
+  axios
+    .put(`${baseURL}/${roundPath}`, roundInfo)
+    .then(res => {
+      // console.log(res)
+      // console.log(res.data)
+      storePlayerInfo(res.data)
+      // let newRoundData = Object.assign(roundData, res.data);
+    })
+}
+
+const storePlayerInfo = (objInfo) => {
+  roundData = Object.assign(objInfo)
+  console.log(roundData)
+}
+
 const createBattleRoundCard = (round) => {
-  // console.log(round.target)
+  console.log(round)
   const btnCheck = round.target.innerHTML
 
   if(btnCheck === 'Begin Game'){
@@ -284,9 +333,11 @@ const createBattleRoundCard = (round) => {
       }
     })
   }else{
+    // console.log(roundData)
     updateRound(round);
+    // let playerInfo = storePlayerInfo()
     axios
-    .post(`${baseURL}/${round}`)
+    .post(`${baseURL}/${round}`, playerInfo)
     .then((res) => {
       // console.log(round.target.textContent)
       if((round.target.textContent) == 'Finish Game'){
@@ -309,32 +360,7 @@ const getBattleRound = (roundBtn) => {
     })
 }
 
-const updateRound = (round) => {
-  path = round.composedPath()
-  let roundPath = path[1].firstChild.innerHTML.charAt(12);
 
-  let p1Path = path[1].children[1]
-  let p1ScorePath = p1Path[0].value
-  let p1BattleTacticPath = p1Path[1].value
-
-  let p2Path = path[1].children[2]
-  let p2ScorePath = p2Path[0].value
-  let p2BattleTacticPath = p2Path[1].value
-
-  let roundInfo = {
-    round : roundPath,
-    p1BattleTactic : p1BattleTacticPath,
-    p2BattleTactic : p2BattleTacticPath,
-    p1Score : p1ScorePath,
-    p2Score : p2ScorePath,
-  }
-
-  // console.log(roundInfo)
-  
-  axios
-    .put(`${baseURL}/${roundPath}`, roundInfo)
-    .then()
-}
 
 const deleteRound = (currRound) => {
   let thisRound = currRound.target.innerHTML

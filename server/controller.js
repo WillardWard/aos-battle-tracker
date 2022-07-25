@@ -85,42 +85,83 @@ const confirmInfo = (req, res) => {
   res.status(200).send(req.body);
 }
 
-const createRoundCard = (req, res) => {
-  // if(globalRound === 0){
-  //   battleRoundList.splice(1);
-  //   globalRound++
-  // }
+const updateRoundData = (req, res) => {
+  // console.log(playerInfo)
 
-  // console.log(req)
-  
-  // let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, p1TotalScore, p2TotalScore } = playerInfo
+  let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
 
-  // console.log(`createRoundCard playerInfo.p1Army: ${playerInfo.p1Army}`)
-  // console.log(`createRoundCard playerInfo.p1TotalScore: ${playerInfo.p1TotalScore}`)
-
-
-  let newBattleRound = { 
-    round : globalRound, 
+  // let index = battleRoundList.findIndex(elem => elem.round === +req.params.round)
+  battleRoundList[round] = { 
+    round : round, 
     p1Name : playerInfo.p1Name, 
     p2Name : playerInfo.p2Name, 
     p1Army : playerInfo.p1Army, 
     p2Army : playerInfo.p2Army, 
     p1GrandStrat : playerInfo.p1GrandStrat,                   
     p2GrandStrat : playerInfo.p2GrandStrat, 
-    p1BattleTactic : 'BattleTacticList', 
-    p2BattleTactic : 'BattleTacticList',                  
+    p1BattleTactic : p1BattleTactic, 
+    p2BattleTactic : p2BattleTactic,                  
     battlePlan : playerInfo.battlePlan, 
-    p1Score : 0,
-    p2Score : 0, 
-    p1TotalScore : playerInfo.p1TotalScore,
-    p2TotalScore : playerInfo.p2TotalScore,
+    p1Score : p1Score,
+    p2Score : p2Score, 
+    p1TotalScore : playerInfo.p1TotalScore += parseInt(p1Score),
+    p2TotalScore : playerInfo.p2TotalScore += parseInt(p2Score),
     p1GoesFirst : true 
   };
+
+  // playerInfo.p1TotalScore += parseInt(p1Score)
+  // playerInfo.p2TotalScore += parseInt(p2Score)
+
+  // console.log(battleRoundList[round])
+  console.log(playerInfo)
+  
+  res.status(200).send(playerInfo);
+}
+
+const createRoundCard = (req, res) => {
+  // if(globalRound === 0){
+  //   battleRoundList.splice(1);
+  //   globalRound++
+  // }
+
+  // console.log(playerInfo)
+  
+  let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, battlePlan, p1TotalScore, p2TotalScore } = playerInfo
+
+  // console.log(`createRoundCard playerInfo.p1Army: ${playerInfo.p1Army}`)
+  // console.log(`createRoundCard playerInfo refers p1Army: ${p1Army}`)
+  // console.log(`createRoundCard playerInfo.p1TotalScore: ${playerInfo.p1TotalScore}`)
+  // console.log(`createRoundCard playerInfo refers p1TotalScore: ${p1TotalScore}`)
+
+
+  let newBattleRound = { 
+    round : globalRound, 
+    p1Name : p1Name, 
+    p2Name : p2Name, 
+    p1Army : p1Army, 
+    p2Army : p2Army, 
+    p1GrandStrat : p1GrandStrat,                   
+    p2GrandStrat : p2GrandStrat, 
+    p1BattleTactic : 'BattleTacticList', 
+    p2BattleTactic : 'BattleTacticList',                  
+    battlePlan : battlePlan, 
+    p1Score : 0,
+    p2Score : 0, 
+    p1TotalScore : p1TotalScore,
+    p2TotalScore : p2TotalScore,
+    p1GoesFirst : true 
+  };
+
+  // console.log(JSON.stringify(newBattleRound))
+  battleRoundList[globalRound] = Object.assign({}, newBattleRound)
+  // console.log(battleRoundList[globalRound])
 
   // console.log(`createRoundCard newBattleRound.p1TotalScore: ${newBattleRound.p1TotalScore}`)
 
   if(globalRound <= 5){
-   battleRoundList.push(newBattleRound)
+  //  battleRoundList.push(battleRoundList[globalRound])
+  //  battleRoundList.forEach(element => console.log(element))
+  //  console.log(battleRoundList)
    res.status(200).send(battleRoundList[globalRound])
    globalRound++
   }else{
@@ -193,36 +234,7 @@ const clearRoundData = (req, res) => {
   res.status(200)
 }
 
-const updateRoundData = (req, res) => {
-  let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
 
-  // let index = battleRoundList.findIndex(elem => elem.round === +req.params.round)
-  battleRoundList[round] = { 
-    round : round, 
-    p1Name : playerInfo.p1Name, 
-    p2Name : playerInfo.p2Name, 
-    p1Army : playerInfo.p1Army, 
-    p2Army : playerInfo.p2Army, 
-    p1GrandStrat : playerInfo.p1GrandStrat,                   
-    p2GrandStrat : playerInfo.p2GrandStrat, 
-    p1BattleTactic : p1BattleTactic, 
-    p2BattleTactic : p2BattleTactic,                  
-    battlePlan : playerInfo.battlePlan, 
-    p1Score : p1Score,
-    p2Score : p2Score, 
-    p1TotalScore : playerInfo.p1TotalScore += parseInt(p1Score),
-    p2TotalScore : playerInfo.p2TotalScore += parseInt(p2Score),
-    p1GoesFirst : true 
-  };
-
-  // playerInfo.p1TotalScore += parseInt(p1Score)
-  // playerInfo.p2TotalScore += parseInt(p2Score)
-
-  // console.log(battleRoundList[round])
-  // console.log(playerInfo)
-  
-  res.status(200).send();
-}
 
 
 module.exports = {
