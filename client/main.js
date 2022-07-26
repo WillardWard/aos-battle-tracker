@@ -242,7 +242,10 @@ const displayRound = (bodyObj) => {
   
   p1RoundCard.append(p1ScoreLabel, p1ScoreInput, p1BattleTacticLabel, p1BattleTacticSelect);
   p2RoundCard.append(p2ScoreLabel, p2ScoreInput, p2BattleTacticLabel, p2BattleTacticSelect);
+  
+
   battleCard.append(p1RoundCard,p2RoundCard)
+
   
 /// update score totals
   p1ScoreInput.addEventListener('input', (e) => {
@@ -276,6 +279,8 @@ const displayRound = (bodyObj) => {
   deleteRoundBtn.addEventListener('click', deleteRound)
   
 }
+
+// const priorityClick = (player) => player = true;
 
 const clearRoundData = (event) => {
   // console.log(event.target)
@@ -382,6 +387,7 @@ const getBattleRound = (roundBtn) => {
         showFetchedData(res.data)
       })
   }else {
+    updateRound(roundBtn)
     axios
       .get(`${baseURL}/${round}`)
       .then((res) => {
@@ -516,17 +522,7 @@ const displayResults = (bodyObj) => {
   resultsPage.append(winnerText)
 }
 
-// const whoGoesFirst = (p1Name, p2Name) => {
-//   const p1priorityBtn = document.createElement('button')
-//   const p2priorityBtn = document.createElement('button')
-//   p1priorityBtn.id = 'p1-priority-btn'
-//   p2priorityBtn.id = 'p2-priority-btn'
-//   p1priorityBtn.innerHTML = `${p1Name} Goes First`
-//   p2priorityBtn.innerHTML = `${p2Name} Goes First`
-//   playerForms.append(p1priorityBtn, p2priorityBtn)
-//   p1priorityBtn.addEventListener('click', setPriority)
-//   p2priorityBtn.addEventListener('click', setPriority)
-// }
+
 
 
 
@@ -636,3 +632,44 @@ const createCmdPtCard = (player) => {
     round3Btn.addEventListener('click', getBattleRound);
     round4Btn.addEventListener('click', getBattleRound);
     round5Btn.addEventListener('click', getBattleRound);
+
+/* 
+
+              Unused Functions (future)
+
+                                                */
+
+// const whoGoesFirst = (p1Name, p2Name) => {
+//   console.log('who goes first begins!')
+//   let p1Priority = true
+//   let p2Priority = true
+//   const playerPriority = document.createElement('div')
+//   const p1priorityBtn = document.createElement('button')
+//   const p2priorityBtn = document.createElement('button')
+//   const p1priorityLabel = document.createElement('label')
+//   const p2priorityLabel = document.createElement('label')
+//   playerPriority.id = 'player-priority'
+//   p1priorityBtn.id = 'p1-priority-btn'
+//   p2priorityBtn.id = 'p2-priority-btn'
+//   p1priorityBtn.name = 'priority-radio'
+//   p2priorityBtn.name = 'priority-radio'
+//   p1priorityLabel.id = 'p1-priority-label'
+//   p2priorityLabel.id = 'p2-priority-label'
+//   p1priorityBtn.type = 'radio'
+//   p2priorityBtn.type = 'radio'
+//   p1priorityLabel.htmlFor = 'p1-priority-btn'
+//   p2priorityLabel.htmlFor = 'p2-priority-btn'
+//   p1priorityLabel.innerHTML = `${p1Name} Goes First`
+//   p2priorityLabel.innerHTML = `${p2Name} Goes First`
+//   playerForms.append(playerPriority)
+//   playerPriority.append(p1priorityLabel, p1priorityBtn)
+//   playerPriority.append(p2priorityLabel, p2priorityBtn);
+//   p1priorityBtn.addEventListener('click', () => {
+//     p1Priority = true
+//     p2Priority = false
+//   })
+//   p2priorityBtn.addEventListener('click', () => {
+//     p1Priority = false
+//     p2Priority = true
+//   })
+// }

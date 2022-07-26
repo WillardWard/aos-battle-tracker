@@ -176,7 +176,7 @@ const createRoundCard = (req, res) => {
 const getBattleRound = (req, res) => {
   // console.log(req.params)
   let {round} = req.params
-  // console.log(battleRoundList[round])
+  console.log(battleRoundList[round])
 
 
   res.status(200).send(battleRoundList[round])
