@@ -5,11 +5,13 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Warhammer Battle Tracker</title>
-      <link rel="stylesheet" href="index.css"/>
+      <!-- <link rel="stylesheet" href="index.css"/> -->
     </head>
     <body>
       <header>
-        <h1 class="site-title">Warhammer Age of Sigmar Battle Tracker</h1>
+        <img src="https://ageofsigmar.com/wp-content/uploads/2021/04/lM54Ou1VvXb53qXb-400x100.png">
+        <img src="Battle Tracker.png">
+        <!-- <h1 class="site-title">Battle Tracker</h1> -->
       </header>
       <main>
         <div id="player-forms">
@@ -33,20 +35,22 @@
             <button id="get-p2-info">Submit</button>
           </form>
 
-          <label for="clear-data">Clear All Data:</label>
-          <button id="clear-data">Clear</button>
-          <label for="fetch-data">Fetch All Data:</label>
-          <button id="fetch-data">Fetch</button>
+          <div id = fetch-data-section>
+            <label for="clear-data">Clear All Data:</label>
+            <button id="clear-data">Clear</button>
+            <label for="fetch-data">Fetch All Data:</label>
+            <button id="fetch-data">Fetch</button>
+          </div>
 
         </div>
 
         <div id="round-nav-btns">
           <h3 id="round-nav-label" hidden>Select BattleRound:</h1>
-          <button id="round-1" type="button" hidden>1</button>
-          <button id="round-2" type="button" hidden>2</button>
-          <button id="round-3" type="button" hidden>3</button>
-          <button id="round-4" type="button" hidden>4</button>
-          <button id="round-5" type="button" hidden>5</button>
+          <button class="round-btns" id="round-1" type="button" hidden>1</button>
+          <button class="round-btns" id="round-2" type="button" hidden>2</button>
+          <button class="round-btns" id="round-3" type="button" hidden>3</button>
+          <button class="round-btns" id="round-4" type="button" hidden>4</button>
+          <button class="round-btns" id="round-5" type="button" hidden>5</button>
         </div>
 
         <div id="score-totals" hidden>

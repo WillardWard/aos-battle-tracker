@@ -16,7 +16,7 @@ let playerInfo = {
   p2TotalScore : 0,
 }
 
-let globalRound = 1
+let globalRound = 0
 
 let battleRoundList = [
   {
@@ -134,42 +134,44 @@ const createRoundCard = (req, res) => {
   // console.log(`createRoundCard playerInfo.p1TotalScore: ${playerInfo.p1TotalScore}`)
   // console.log(`createRoundCard playerInfo refers p1TotalScore: ${p1TotalScore}`)
 
+  if(globalRound != 0){
 
-  let newBattleRound = { 
-    round : globalRound, 
-    p1Name : p1Name, 
-    p2Name : p2Name, 
-    p1Army : p1Army, 
-    p2Army : p2Army, 
-    p1GrandStrat : p1GrandStrat,                   
-    p2GrandStrat : p2GrandStrat, 
-    p1BattleTactic : 'BattleTacticList', 
-    p2BattleTactic : 'BattleTacticList',                  
-    battlePlan : battlePlan, 
-    p1Score : 0,
-    p2Score : 0, 
-    p1TotalScore : p1TotalScore,
-    p2TotalScore : p2TotalScore,
-    p1GoesFirst : true 
-  };
-
-  // console.log(JSON.stringify(newBattleRound))
-  battleRoundList[globalRound] = Object.assign({}, newBattleRound)
-  // console.log(battleRoundList[globalRound])
-
-  // console.log(`createRoundCard newBattleRound.p1TotalScore: ${newBattleRound.p1TotalScore}`)
-
-  if(globalRound <= 5){
-  //  battleRoundList.push(battleRoundList[globalRound])
-  //  battleRoundList.forEach(element => console.log(element))
-  //  console.log(battleRoundList)
-   res.status(200).send(battleRoundList[globalRound])
-   globalRound++
-  }else{
-    res.status(200).send(playerInfo);
+    let newBattleRound = { 
+      round : globalRound, 
+      p1Name : p1Name, 
+      p2Name : p2Name, 
+      p1Army : p1Army, 
+      p2Army : p2Army, 
+      p1GrandStrat : p1GrandStrat,                   
+      p2GrandStrat : p2GrandStrat, 
+      p1BattleTactic : 'BattleTacticList', 
+      p2BattleTactic : 'BattleTacticList',                  
+      battlePlan : battlePlan, 
+      p1Score : 0,
+      p2Score : 0, 
+      p1TotalScore : p1TotalScore,
+      p2TotalScore : p2TotalScore,
+      p1GoesFirst : true 
+    };
+    
+    // console.log(JSON.stringify(newBattleRound))
+    battleRoundList[globalRound] = Object.assign({}, newBattleRound)
+    // console.log(battleRoundList[globalRound])
+    
+    // console.log(`createRoundCard newBattleRound.p1TotalScore: ${newBattleRound.p1TotalScore}`)
+    
+    if(globalRound <= 5){
+      //  battleRoundList.push(battleRoundList[globalRound])
+      //  battleRoundList.forEach(element => console.log(element))
+      //  console.log(battleRoundList)
+      res.status(200).send(battleRoundList[globalRound])
+      globalRound++
+    }else{
+      res.status(200).send(playerInfo);
+    }
+    // console.log(battleRoundList[0])
+    // console.log(battleRoundList[1])
   }
-  // console.log(battleRoundList[0])
-  // console.log(battleRoundList[1])
 
 }
 

@@ -24,6 +24,10 @@ const round5Btn = document.getElementById('round-5')
 const scoreTotalCard = document.getElementById('score-totals')
 const clearDataBtn = document.getElementById('clear-data')
 const fetchDataBtn = document.getElementById('fetch-data')
+const p1ScoreTotalCard = document.getElementById('p1-score-total')
+const p2ScoreTotalCard = document.getElementById('p2-score-total')
+const fetchedData = document.getElementById('fetch-data-section')
+
 
 let roundData = {
   p1Name : "Player 1",
@@ -134,6 +138,8 @@ const promptBattle = (bodyObj) =>{
   let { playerName, playerArmy, playerGrand, player1 } = bodyObj;
   const promptSection = document.createElement('div')
   const promptText = document.createElement('p')
+  promptSection.className = 'prompt-section'
+  promptText.className = 'prompt-section-text'
   promptSection.id = `${playerName}-info-card`
   promptText.id = `${playerName}-prompt-text`
 
@@ -164,7 +170,7 @@ const promptBattle = (bodyObj) =>{
     const beginGameBtn = document.createElement('button')
     beginGameBtn.id = 'begin-game-btn'
     beginGameBtn.innerHTML = 'Begin Game'
-    playerForms.append(beginGameBtn);
+    playerForms.prepend(beginGameBtn);
     beginGameBtn.addEventListener('click', createBattleRoundCard)
   }
 
@@ -182,6 +188,7 @@ const displayRound = (bodyObj) => {
 // console.log(p1TotalScore)
 // console.log(p2TotalScore)
 
+const nextRound = round + 1
 
 /// create battle round card and buttons
   const battleCard = document.createElement('div')
@@ -195,7 +202,7 @@ const displayRound = (bodyObj) => {
   finishGameBtn.id = 'finish-game-btn'
 
   battleCard.innerHTML = `<h1>BattleRound ${bodyObj.round}</h1>`
-  nextRoundBtn.innerHTML = 'Next Round';
+  nextRoundBtn.innerHTML = `Go To Round ${nextRound}`;
   deleteRoundBtn.innerHTML = `Delete Round ${round}`
   finishGameBtn.innerHTML = 'Finish Game'
 
@@ -209,10 +216,12 @@ const displayRound = (bodyObj) => {
   const p1ScoreInput = document.createElement('input')
   const p1BattleTacticSelect = document.createElement('select')
   const p1BattleTacticLabel = document.createElement('label')
-
+  
+  p1RoundCard.className = 'player-round-card'
   p1RoundCard.id = 'p1-round-card'
   p1ScoreInput.id = 'p1-score-input'
   p1ScoreInput.type = 'number'
+  p1ScoreInput.min = 0
   p1ScoreInput.value = p1Score
   p1ScoreLabel.htmlFor = 'p1-score-input'
   p1BattleTacticSelect.id = 'p1-battle-tactic-select'
@@ -228,9 +237,11 @@ const displayRound = (bodyObj) => {
   const p2BattleTacticSelect = document.createElement('select')
   const p2BattleTacticLabel = document.createElement('label')
 
+  p2RoundCard.className = 'player-round-card'
   p2RoundCard.id = 'p2-round-card'
   p2ScoreInput.id = 'p2-score-input'
   p2ScoreInput.type = 'number'
+  p2ScoreInput.min = 0
   p2ScoreInput.value = p2Score
   p2ScoreLabel.htmlFor = 'p2-score-input'
   p2BattleTacticSelect.id = 'p2-battle-tactic-select'
@@ -241,10 +252,17 @@ const displayRound = (bodyObj) => {
   
   
   p1RoundCard.append(p1ScoreLabel, p1ScoreInput, p1BattleTacticLabel, p1BattleTacticSelect);
+  p1RoundCard.append(p1ScoreTotalCard)
   p2RoundCard.append(p2ScoreLabel, p2ScoreInput, p2BattleTacticLabel, p2BattleTacticSelect);
+  // p2RoundCard.prepend(p2ScoreTotalCard)
   
 
-  battleCard.append(p1RoundCard,p2RoundCard)
+  
+  battleCard.append(p1RoundCard, p2RoundCard)
+  // battleCard.prepend(p2RoundCard)
+  createCmdPtCard(p1Name, 'p1', battleCard)
+  createCmdPtCard(p2Name, 'p2', battleCard)
+  // battleCard.prepend(p1ScoreTotalCard, p2ScoreTotalCard)
 
   
 /// update score totals
@@ -272,8 +290,7 @@ const displayRound = (bodyObj) => {
     battleCard.append(finishGameBtn)
     finishGameBtn.addEventListener('click', createBattleRoundCard)
   }
-  createCmdPtCard(p1Name)
-  createCmdPtCard(p2Name)
+  
   
   battleCard.append(deleteRoundBtn)
   deleteRoundBtn.addEventListener('click', deleteRound)
@@ -287,12 +304,16 @@ const clearRoundData = (event) => {
   let path = event.target.id
   if(path === 'clear-data'){
     console.log('Front-end clearing data..')
-    playerForms.lastElementChild.remove()
-    axios
-    .delete(baseURL)
-    .then((res) => {
-      console.log('Data cleared')
-    })
+    if(fetchedData.lastElementChild.innerHTML != 'Fetch'){
+      fetchedData.lastElementChild.remove()
+      axios
+      .delete(baseURL)
+      .then((res) => {
+        console.log('Data cleared')
+      })
+    }else{
+      console.log(`There's nothing left to clear!`)
+    }
   }else {
     axios
       .delete(baseURL)
@@ -305,13 +326,14 @@ const clearRoundData = (event) => {
 const updateRound = (round) => {
   console.log(round)
   path = round.composedPath()
-  let roundPath = path[1].firstChild.innerHTML.charAt(12);
+  console.log(path)
+  let roundPath = path[1].children[2].innerHTML.charAt(12);
 
-  let p1Path = path[1].children[1]
+  let p1Path = path[1].children[3]
   let p1ScorePath = p1Path[0].value
   let p1BattleTacticPath = p1Path[1].value
 
-  let p2Path = path[1].children[2]
+  let p2Path = path[1].children[4]
   let p2ScorePath = p2Path[0].value
   let p2BattleTacticPath = p2Path[1].value
 
@@ -341,7 +363,7 @@ const storePlayerInfo = (objInfo) => {
 }
 
 const createBattleRoundCard = (round) => {
-  // console.log(round)
+  console.log(round)
   const btnCheck = round.target.innerHTML
   console.log(btnCheck)
 
@@ -358,7 +380,7 @@ const createBattleRoundCard = (round) => {
       }
     })
   }else{
-    // console.log(roundData)
+    console.log(roundData)
     updateRound(round);
     // let playerInfo = storePlayerInfo()
     axios
@@ -418,11 +440,11 @@ const showFetchedData = (objArr) => {
     dataTable.appendChild(tableRow2)
   })
   
-  if ((playerForms.lastElementChild.id) == 'data-table'){
-    playerForms.removeChild(playerForms.lastElementChild)
-    playerForms.appendChild(dataTable)
+  if ((fetchedData.lastElementChild.id) == 'data-table'){
+    fetchedData.removeChild(fetchedData.lastElementChild)
+    fetchedData.appendChild(dataTable)
   }else {
-    playerForms.appendChild(dataTable)
+    fetchedData.appendChild(dataTable)
   }
 }
 
@@ -563,13 +585,14 @@ const displayPlayerInfo = (bodyObj) => {
 
 // Command Point Handler
 
-const createCmdPtCard = (player) => {
+const createCmdPtCard = (name, player, roundCard) => {
   const cmdPtCard = document.createElement('div')
   const cmdPtLabel = document.createElement('h3')
   const cmdPts = document.createElement('h2')
   const plusBtn = document.createElement('button')
   const minusBtn = document.createElement('button')
   const resetBtn = document.createElement('button')
+  cmdPtCard.className = 'cmd-pt-card'
   cmdPtCard.id = `${player}-cmd-pt-card`
   cmdPtLabel.id = `${player}-cmd-pt-label`
   cmdPts.id = `${player}-command-points`
@@ -577,13 +600,15 @@ const createCmdPtCard = (player) => {
   minusBtn.id = `${player}-minus-btn`
   resetBtn.id = `${player}-reset-btn`
   cmdPts.innerHTML = 0
-  cmdPtLabel.innerHTML = `${player}'s Command Points`
+  cmdPtLabel.innerHTML = `${name}'s Command Points`
   plusBtn.innerHTML = '+'
   minusBtn.innerHTML = '-'
   resetBtn.innerHTML = "Reset"
   
-  playerForms.appendChild(cmdPtCard);
+  
+  roundCard.prepend(cmdPtCard);
   cmdPtCard.append(cmdPtLabel, cmdPts, minusBtn, resetBtn, plusBtn);
+  
   
   let currCmdPts = 0
 

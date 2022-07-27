@@ -1,0 +1,323 @@
+body {
+  background-image: url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/main-menu-bg.png'), url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/red-texture.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#player-forms {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+#p1-form {
+  width: 90vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#p2-form {
+  width: 90vw;
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.prompt-section-text {
+  font-size : 2rem;
+}
+
+input[type=text] {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  max-height:fit-content;
+}
+
+input[type=number] {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  max-height:fit-content;
+}
+
+#get-p1-info {
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  align-self: center;
+}
+
+#get-p2-info {
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  align-self: center;
+}
+
+select {
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+}
+
+button {
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  align-self: center;
+}
+
+#clear-data {
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  align-self: center;
+}
+
+#fetch-data {
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  align-self: center;
+}
+
+.cmd-pt-card {
+  width: fit-content;
+  /* justify-self: center; */
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  /* align-self: center; */
+}
+
+#p1-cmd-pt-card {
+  position: absolute;
+  top: 50vh;
+  left: 3vw;
+  font-size: 1.2rem;
+}
+
+#p2-cmd-pt-card {
+  position: absolute;
+  top: 50vh;
+  right: 3vw;
+  font-size: 1.2rem;
+}
+
+.player-round-card {
+  font-size: 2rem;
+}
+
+.battle-card {
+  display: flex;
+}
+
+#score-totals {
+  display: block;
+  width: fit-content;
+  /* justify-self: center; */
+  margin: 1rem;
+  padding: .5rem;
+  background-color: #2D0200;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: .25rem;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #AD7935,
+               2px 2px 1px black;
+  color :  #AD7935;
+  stroke: solid, black;
+  stroke-width: 3px;
+  text-align: center;
+  min-width: 5%;
+  /* justify-content: space-between; */
+}
+
+#p1-score-total {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 20vw;
+  font-size: 1.2rem;
+}
+
+#p2-score-total {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 20vw;
+  font-size: 1.2rem;
+}
+
+/* .site-title {
+  font-family:  fantasy;
+  color : #AD7935;
+  text-align: center;
+  /* border: 1px solid #000000;
+  text-shadow: 3px 5px 3px rgba(7, 7, 7, 0.28);
+  } 
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* button {
+  display: inline-flex; 
+  overflow: hidden; 
+  position: relative; 
+  padding-top: 1rem;
+  padding-bottom: 1rem; 
+  padding-left: 3rem;
+  padding-right: 3rem; 
+  border : none;
+  background-position: center;
+  background-image: url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/button-bg.png');
+  background-repeat: no-repeat; 
+  background-size: contain; 
+  color: #ffffff; 
+  text-align: center; 
+  text-transform: uppercase; 
+  justify-content: center; 
+  align-items: center;
+  
+  @media (min-width: 1024px) { 
+    padding-left: 3.5rem;
+    padding-right: 3.5rem; 
+  }
+} */
