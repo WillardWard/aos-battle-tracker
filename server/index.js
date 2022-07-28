@@ -27,7 +27,7 @@ app.get('/api/allrounds', getAllRounds);
 app.get('/api/battletracker/results', getResults); 
 app.post('/api/battletracker', playerSubmit)
 app.post('/api/start', makeRounds);
-app.post('/api/battletracker/:round', createRoundCard)
+app.put('/api/battleround', createRoundCard)
 app.put('/api/battletracker', confirmInfo)
 app.put('/api/battletracker/:round', updateRoundData)
 app.delete('/api/battletracker', clearRoundData)

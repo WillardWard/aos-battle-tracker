@@ -48,7 +48,7 @@ const getArmyList = (req, res) => {
 const playerSubmit = (req, res) => {
   let { playerName, playerArmy, playerGrand, player1 } = req.body;
 
-  console.log(req.body)
+  // console.log(req.body)
 
   const filteredGrand = armyInfo.filter((obj)=> {
     return obj.armyName === playerArmy;
@@ -88,12 +88,15 @@ const confirmInfo = (req, res) => {
 }
 
 const updateRoundData = (req, res) => {
-  console.log(`updateRoundData globalRound = ${globalRound}`)
-
+  
   let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
+  // console.log(`updateRoundData round = ${round}`)
+  // console.log(req.body)
+  // console.log(`these are the req.params for updateround:`)
+  // console.log(req.params)
 
-  // let index = battleRoundList.findIndex(elem => elem.round === +req.params.round)
-  battleRoundList[round] = { 
+  let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
+  battleRoundList[index] = { 
     round : round, 
     p1Name : playerInfo.p1Name, 
     p2Name : playerInfo.p2Name, 
@@ -106,40 +109,33 @@ const updateRoundData = (req, res) => {
     battlePlan : playerInfo.battlePlan, 
     p1Score : p1Score,
     p2Score : p2Score, 
-    p1TotalScore : playerInfo.p1TotalScore += parseInt(p1Score),
-    p2TotalScore : playerInfo.p2TotalScore += parseInt(p2Score),
+    p1TotalScore : (playerInfo.p1TotalScore) += p1Score,
+    p2TotalScore : (playerInfo.p2TotalScore) += p2Score,
     p1GoesFirst : true 
   };
 
   // playerInfo.p1TotalScore += parseInt(p1Score)
   // playerInfo.p2TotalScore += parseInt(p2Score)
 
-  // console.log(battleRoundList[round])
+  // console.log(battleRoundList[index])
   // console.log(playerInfo)
   
   res.status(200).send(playerInfo);
 }
 
 const createRoundCard = (req, res) => {
-  console.log(`createRoundCard globalRound = ${globalRound}`)
-  // if(globalRound === 0){
-  //   battleRoundList.splice(1);
-  //   globalRound++
-  // }
-
-  // console.log(playerInfo)
+  let {round} = req.body
+  // console.log(`createRoundCard round = ${round}`)
+  round = Number(round)
+  console.log(round)
+  
   
   let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, battlePlan, p1TotalScore, p2TotalScore } = playerInfo
 
-  // console.log(`createRoundCard playerInfo.p1Army: ${playerInfo.p1Army}`)
-  // console.log(`createRoundCard playerInfo refers p1Army: ${p1Army}`)
-  // console.log(`createRoundCard playerInfo.p1TotalScore: ${playerInfo.p1TotalScore}`)
-  // console.log(`createRoundCard playerInfo refers p1TotalScore: ${p1TotalScore}`)
 
-  if(globalRound != 0){
 
-    let newBattleRound = { 
-      round : globalRound, 
+     battleRoundList[round] = { 
+      round : round, 
       p1Name : p1Name, 
       p2Name : p2Name, 
       p1Army : p1Army, 
@@ -157,24 +153,19 @@ const createRoundCard = (req, res) => {
     };
     
     // console.log(JSON.stringify(newBattleRound))
-    battleRoundList[globalRound] = Object.assign({}, newBattleRound)
+    // battleRoundList[globalRound] = Object.assign({}, newBattleRound)
     // console.log(battleRoundList[globalRound])
     
     // console.log(`createRoundCard newBattleRound.p1TotalScore: ${newBattleRound.p1TotalScore}`)
     
-    if(globalRound <= 5){
+    if(round > 0 && round <= 5){
       //  battleRoundList.push(battleRoundList[globalRound])
       //  battleRoundList.forEach(element => console.log(element))
-      //  console.log(battleRoundList)
-      res.status(200).send(battleRoundList[globalRound])
-      globalRound++
+       console.log(battleRoundList[round])
+      res.status(200).send(battleRoundList[round])
     }else{
       res.status(200).send(playerInfo);
     }
-    // console.log(battleRoundList[0])
-    // console.log(battleRoundList[1])
-  }
-
 }
 
 const getBattleRound = (req, res) => {
@@ -214,7 +205,6 @@ const deleteBattleRound = (req, res) => {
   // battleRoundList.forEach(element => {
   //   // console.log(element)
   // });
-  globalRound = index
 
   if(index > 1){
     res.status(200).send(battleRoundList[index-1])
@@ -235,8 +225,8 @@ const getResults = (req, res) => {
 const clearRoundData = (req, res) => {
   console.log('Server clearing data')
   battleRoundList.splice(1);
+  makeRounds();
   // console.log(battleRoundList[0])
-  globalRound = 1;
   res.status(200)
 }
 

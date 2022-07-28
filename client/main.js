@@ -338,21 +338,28 @@ const clearRoundData = (event) => {
 }
 
 const updateRound = (round) => {
-  console.log(round)
+  // console.log(round)
   path = round.composedPath()
-  console.log(path)
-  let roundPath = path[1].children[2].innerHTML.charAt(12);
+  // console.log(path)
+  let roundPath = path[0].innerHTML.charAt(12);
+  // console.log(path[0].innerHTML.charAt(10));
+  // console.log(path[0].innerHTML.charAt(11));
+  // console.log(path[0].innerHTML.charAt(12));
+  // console.log(path[0].innerHTML.charAt(13));
+  
+  // console.log(roundPath)
+  // console.log(Number(roundPath))
 
   let p1Path = path[1].children[3]
-  let p1ScorePath = p1Path[0].value
+  let p1ScorePath = Number(p1Path[0].value)
   let p1BattleTacticPath = p1Path[1].value
 
   let p2Path = path[1].children[4]
-  let p2ScorePath = p2Path[0].value
+  let p2ScorePath = Number(p2Path[0].value)
   let p2BattleTacticPath = p2Path[1].value
 
   let roundInfo = {
-    round : roundPath,
+    round : Number(roundPath),
     p1BattleTactic : p1BattleTacticPath,
     p2BattleTactic : p2BattleTacticPath,
     p1Score : p1ScorePath,
@@ -385,19 +392,21 @@ const makeRounds = () => {
     .catch(errCallback)
 }
 
-const createBattleRoundCard = (round) => {
-  console.log(round)
-  const btnCheck = round.target.innerHTML
+const createBattleRoundCard = (e) => {
+  // console.log(e)
+  const btnCheck = e.target.innerHTML
   console.log(btnCheck)
+  let round = btnCheck.charAt(12);
 
   if(btnCheck === 'Begin Game'){
-    clearRoundData(round);
+    clearRoundData(e);
     makeRounds();
+    round = 1
     axios
-    .post(`${baseURL}/${round}`)
+    .put(`http://localhost:4004/api/battleround`, {round})
     .then((res) => {
       // console.log(round.target.textContent)
-      if((round.target.textContent) == 'Finish Game'){
+      if((e.target.textContent) == 'Finish Game'){
         displayResults(res.data)
       }else{
         displayRound(res.data);
@@ -405,13 +414,13 @@ const createBattleRoundCard = (round) => {
     })
   }else{
     console.log(roundData)
-    updateRound(round);
+    updateRound(e);
     // let playerInfo = storePlayerInfo()
     axios
-    .post(`${baseURL}/${round}`, playerInfo)
+    .put(`http://localhost:4004/api/battleround`, {round})
     .then((res) => {
       // console.log(round.target.textContent)
-      if((round.target.textContent) == 'Finish Game'){
+      if((e.target.textContent) == 'Finish Game'){
         displayResults(res.data)
       }else{
         displayRound(res.data);
@@ -517,6 +526,8 @@ const displayResults = (bodyObj) => {
   p2GrandCheck.type = 'checkbox'
   p1GrandLabel.innerHTML = `Did ${p1Name} complete ${p1GrandStrat}?`
   p2GrandLabel.innerHTML = `Did ${p2Name} complete ${p2GrandStrat}?`
+
+  scoreTotalCard.hidden = false;
   
   
   p1GrandCheck.addEventListener('click', () => {
