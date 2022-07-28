@@ -16,7 +16,7 @@ let playerInfo = {
   p2TotalScore : 0,
 }
 
-let globalRound = 0
+// let globalRound = 0
 
 let battleRoundList = [
   {
@@ -47,6 +47,8 @@ const getArmyList = (req, res) => {
 
 const playerSubmit = (req, res) => {
   let { playerName, playerArmy, playerGrand, player1 } = req.body;
+
+  console.log(req.body)
 
   const filteredGrand = armyInfo.filter((obj)=> {
     return obj.armyName === playerArmy;
@@ -239,10 +241,40 @@ const clearRoundData = (req, res) => {
 }
 
 const getAllRounds = (req, res) => {
-  let roundList = []
-  battleRoundList.forEach(element => roundList.push(element));
-  console.log(roundList)
-  res.status(200).send(roundList)
+  // let roundList = []
+  // battleRoundList.forEach(element => roundList.push(element));
+  // console.log(roundList)
+  res.status(200).send(battleRoundList)
+}
+
+const makeRounds = (req, res) => {
+
+  console.log(playerInfo)
+
+  let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, p2GrandStrat, p1TotalScore, p2TotalScore } = playerInfo
+
+  for(let i = 1; i <= 5; i++) {
+    battleRoundList.push(
+    {
+      round : i,
+      p1Name : p1Name,
+      p2Name : p2Name,
+      p1Army : p1Army,
+      p2Army : p2Army,
+      p1GrandStrat : p1GrandStrat,
+      p2GrandStrat : p2GrandStrat,
+      p1BattleTactic : "Battle Tactic 1",
+      p2BattleTactic : "Battle Tactic 2",
+      battlePlan : "Battle Plan 1",
+      p1Score : 0,
+      p2Score : 0,
+      p1TotalScore : p1TotalScore,
+      p2TotalScore : p2TotalScore,
+      p1GoesFirst : true,
+    })
+  }
+
+  // battleRoundList.forEach(element => console.log(element))
 }
 
 
@@ -257,4 +289,5 @@ module.exports = {
   clearRoundData,
   updateRoundData,
   getAllRounds,
+  makeRounds,
 }

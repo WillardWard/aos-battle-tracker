@@ -65,14 +65,22 @@ const submitForm = (e) => {
   // console.log('SubmitForm')
   const eventPath = e.composedPath()
   let btnArr = eventPath[1]
+
+  
   let playerInfo = {
     playerName : btnArr[0].value,
     playerArmy : btnArr[1].value,
     playerGrand : [],
     player1 : true
   }
+  if(btnArr[0].value === ''){
+    playerInfo.playerName = 'Player 1';
+  }
   if(btnArr.id == 'p2-form'){
     playerInfo.player1 = false;
+    if(btnArr[0].value === ''){
+      playerInfo.playerName = 'Player 2';
+    }
   }
   
   axios
@@ -89,11 +97,14 @@ const selectArmy = (e) => {
   let armyClick = e.target.id
   if(armyClick == 'p1-army-select') {
     armyClick = p1ArmySelect;
-    p1SubmitBtn.addEventListener('click', submitForm)
+    p1SubmitBtn.hidden = false;
+    p1SubmitBtn.addEventListener('click', submitForm);
   }else if(armyClick == 'p2-army-select'){
     armyClick = p2ArmySelect;
-    p2SubmitBtn.addEventListener('click', submitForm)
+    p2SubmitBtn.hidden = false;
+    p2SubmitBtn.addEventListener('click', submitForm);
   }else{
+    alert('You have to choose an army!')
     console.log('something went wrong clicking armies')
   }
   axios
@@ -107,24 +118,26 @@ const selectArmy = (e) => {
 
 const confirmInfo = (e) => {
   path = e.composedPath()
-  // console.log(path)
   let btnPath = path[2]
-  // console.log(btnPath.id)
-  
-    playerInfo = {
-      playerName : btnPath[0].value,
-      playerArmy : btnPath[1].value,
-      playerGrand : btnPath[3].value,
-      player1 : true
-    }
 
-  // console.log(btnPath[3].value)
+  playerInfo = {
+    playerName : btnPath[0].value,
+    playerArmy : btnPath[1].value,
+    playerGrand : btnPath[3].value,
+    player1 : true
+  }
+  if(btnPath[0].value === ''){
+    playerInfo.playerName = 'Player 1';
+  }
     
   if(btnPath.id == 'p2-form'){
-  playerInfo.player1 = false
-  playerInfo.playerGrand = btnPath[2].value
-  // console.log(btnPath[2].value)
+    playerInfo.player1 = false
+    if(btnPath[0].value === ''){
+     playerInfo.playerName = 'Player 2';
+    }
   }
+  console.log('This is the confirmInfo:')
+  console.log(playerInfo)
 
   axios
     .put(baseURL, playerInfo)
@@ -136,6 +149,7 @@ const confirmInfo = (e) => {
 
 const promptBattle = (bodyObj) =>{
   let { playerName, playerArmy, playerGrand, player1 } = bodyObj;
+  console.log(playerName)
   const promptSection = document.createElement('div')
   const promptText = document.createElement('p')
   promptSection.className = 'prompt-section'
@@ -170,7 +184,7 @@ const promptBattle = (bodyObj) =>{
     const beginGameBtn = document.createElement('button')
     beginGameBtn.id = 'begin-game-btn'
     beginGameBtn.innerHTML = 'Begin Game'
-    playerForms.prepend(beginGameBtn);
+    playerForms.append(beginGameBtn);
     beginGameBtn.addEventListener('click', createBattleRoundCard)
   }
 
@@ -362,6 +376,15 @@ const storePlayerInfo = (objInfo) => {
   // console.log(roundData)
 }
 
+const makeRounds = () => {
+  axios
+    .post('http://localhost:4004/api/start')
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch(errCallback)
+}
+
 const createBattleRoundCard = (round) => {
   console.log(round)
   const btnCheck = round.target.innerHTML
@@ -369,6 +392,7 @@ const createBattleRoundCard = (round) => {
 
   if(btnCheck === 'Begin Game'){
     clearRoundData(round);
+    makeRounds();
     axios
     .post(`${baseURL}/${round}`)
     .then((res) => {
@@ -550,6 +574,7 @@ const displayResults = (bodyObj) => {
 
 const displayPlayerInfo = (bodyObj) => {
   let { playerName, playerArmy, playerGrand, player1 } = bodyObj;
+  console.log(bodyObj)
   // playerGrand.forEach(element => console.log(element))
   const playerText = document.createElement('p')
   const grandOption = document.createElement('select')
@@ -572,7 +597,7 @@ const displayPlayerInfo = (bodyObj) => {
       p1Form.append(playerText)
     }
   }else if(player1 == false){
-    if((p1Form.lastElementChild.id) == `get-p2-info`){
+    if((p2Form.lastElementChild.id) == `get-p2-info`){
       p2Form.append(playerText)
     }else{
       p2Form.lastElementChild.remove()

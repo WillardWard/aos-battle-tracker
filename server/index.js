@@ -17,19 +17,21 @@ const {
   clearRoundData,
   updateRoundData,
   getAllRounds,
+  makeRounds,
 } = require('./controller')
 
 
 app.get('/api/battletracker', getArmyList);
-app.post('/api/battletracker', playerSubmit)
-app.put('/api/battletracker', confirmInfo)
-app.post('/api/battletracker/:round', createRoundCard)
 app.get('/api/battletracker/:round', getBattleRound)
-app.delete('/api/battletracker/:round', deleteBattleRound)
-app.get('/api/battletracker/results', getResults); 
-app.delete('/api/battletracker', clearRoundData)
-app.put('/api/battletracker/:round', updateRoundData)
 app.get('/api/allrounds', getAllRounds);
+app.get('/api/battletracker/results', getResults); 
+app.post('/api/battletracker', playerSubmit)
+app.post('/api/start', makeRounds);
+app.post('/api/battletracker/:round', createRoundCard)
+app.put('/api/battletracker', confirmInfo)
+app.put('/api/battletracker/:round', updateRoundData)
+app.delete('/api/battletracker', clearRoundData)
+app.delete('/api/battletracker/:round', deleteBattleRound)
 
 
 
