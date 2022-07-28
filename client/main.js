@@ -28,6 +28,8 @@ const p1ScoreTotalCard = document.getElementById('p1-score-total')
 const p2ScoreTotalCard = document.getElementById('p2-score-total')
 const fetchedData = document.getElementById('fetch-data-section')
 
+fetchedData.hidden = false;
+
 
 let roundData = {
   p1Name : "Player 1",
@@ -181,6 +183,7 @@ const promptBattle = (bodyObj) =>{
   }
 
   if((p1Msg = true) && (p2Msg == true)){
+    fetchedData.hidden = true;
     const beginGameBtn = document.createElement('button')
     beginGameBtn.id = 'begin-game-btn'
     beginGameBtn.innerHTML = 'Begin Game'
@@ -197,10 +200,12 @@ const displayRound = (bodyObj) => {
     battlePlan, p1Score,p2Score, p1TotalScore, p2TotalScore, p1GoesFirst } = bodyObj;
 
   
-  scoreTotalCard.hidden = false;
+  p1ScoreTotalCard.hidden = false;
+  p2ScoreTotalCard.hidden = false;
+  
 
-// console.log(p1TotalScore)
-// console.log(p2TotalScore)
+console.log(p1TotalScore)
+console.log(p2TotalScore)
 
 const nextRound = round + 1
 
@@ -266,7 +271,7 @@ const nextRound = round + 1
   
   
   p1RoundCard.append(p1ScoreLabel, p1ScoreInput, p1BattleTacticLabel, p1BattleTacticSelect);
-  p1RoundCard.append(p1ScoreTotalCard)
+  // p1RoundCard.append(p1ScoreTotalCard)
   p2RoundCard.append(p2ScoreLabel, p2ScoreInput, p2BattleTacticLabel, p2BattleTacticSelect);
   // p2RoundCard.prepend(p2ScoreTotalCard)
   
@@ -340,15 +345,17 @@ const clearRoundData = (event) => {
 const updateRound = (round) => {
   // console.log(round)
   path = round.composedPath()
-  // console.log(path)
-  let roundPath = path[0].innerHTML.charAt(12);
+  console.log(path)
+  // let roundPath = path[0].innerHTML.charAt(12);  ---- Finds the number on the "Next Round Btn"
+  let roundPath = path[1].children[2].innerHTML.charAt(12);
+
   // console.log(path[0].innerHTML.charAt(10));
   // console.log(path[0].innerHTML.charAt(11));
   // console.log(path[0].innerHTML.charAt(12));
   // console.log(path[0].innerHTML.charAt(13));
   
   // console.log(roundPath)
-  // console.log(Number(roundPath))
+  console.log(Number(roundPath))
 
   let p1Path = path[1].children[3]
   let p1ScorePath = Number(p1Path[0].value)
@@ -372,8 +379,8 @@ const updateRound = (round) => {
     .put(`${baseURL}/${roundPath}`, roundInfo)
     .then(res => {
       // console.log(res)
-      // console.log(res.data)
-      storePlayerInfo(res.data)
+      console.log('Updating complete')
+      // storePlayerInfo(res.data)
       // let newRoundData = Object.assign(roundData, res.data);
     })
 }
@@ -405,12 +412,7 @@ const createBattleRoundCard = (e) => {
     axios
     .put(`http://localhost:4004/api/battleround`, {round})
     .then((res) => {
-      // console.log(round.target.textContent)
-      if((e.target.textContent) == 'Finish Game'){
-        displayResults(res.data)
-      }else{
-        displayRound(res.data);
-      }
+      displayRound(res.data);
     })
   }else{
     console.log(roundData)
@@ -488,7 +490,7 @@ const deleteRound = (currRound) => {
   // console.log(thisRound.charAt(13))
   let round = thisRound.charAt(13);
   roundBtnArr = [round1Btn, round2Btn, round3Btn, round4Btn, round5Btn]
-  roundBtnArr[round-1].hidden = true;
+  // roundBtnArr[round-1].hidden = true;
 
   axios
     .delete(`${baseURL}/${round}`)
@@ -527,8 +529,6 @@ const displayResults = (bodyObj) => {
   p1GrandLabel.innerHTML = `Did ${p1Name} complete ${p1GrandStrat}?`
   p2GrandLabel.innerHTML = `Did ${p2Name} complete ${p2GrandStrat}?`
 
-  scoreTotalCard.hidden = false;
-  
   
   p1GrandCheck.addEventListener('click', () => {
     if(p1GrandCheck.checked){
