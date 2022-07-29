@@ -31,17 +31,17 @@ const fetchedData = document.getElementById('fetch-data-section')
 fetchedData.hidden = false;
 
 
-let roundData = {
-  p1Name : "Player 1",
-  p2Name : "Player 2",
-  p1Army : "P1 Army",
-  p2Army : "P2 Army",
-  p1GrandStrat : "P1 Grand",
-  p2GrandStrat : "P2 Grand",
-  battlePlan : "Battle Plan 1",
-  p1TotalScore : 0,
-  p2TotalScore : 0,
-}
+// let roundData = {
+//   p1Name : "Player 1",
+//   p2Name : "Player 2",
+//   p1Army : "P1 Army",
+//   p2Army : "P2 Army",
+//   p1GrandStrat : "P1 Grand",
+//   p2GrandStrat : "P2 Grand",
+//   battlePlan : "Battle Plan 1",
+//   p1TotalScore : 0,
+//   p2TotalScore : 0,
+// }
 
 
 
@@ -204,8 +204,8 @@ const displayRound = (bodyObj) => {
   p2ScoreTotalCard.hidden = false;
   
 
-console.log(p1TotalScore)
-console.log(p2TotalScore)
+console.log(`The P1TotalScore: ${p1TotalScore}`)
+console.log(`The P2TotalScore: ${p2TotalScore}`)
 
 const nextRound = round + 1
 
@@ -331,6 +331,7 @@ const clearRoundData = (event) => {
         console.log('Data cleared')
       })
     }else{
+      alert(`There's nothing left to clear!`)
       console.log(`There's nothing left to clear!`)
     }
   }else {
@@ -343,28 +344,39 @@ const clearRoundData = (event) => {
 }
 
 const updateRound = (round) => {
-  // console.log(round)
   path = round.composedPath()
-  console.log(path)
-  // let roundPath = path[0].innerHTML.charAt(12);  ---- Finds the number on the "Next Round Btn"
-  let roundPath = path[1].children[2].innerHTML.charAt(12);
 
-  // console.log(path[0].innerHTML.charAt(10));
-  // console.log(path[0].innerHTML.charAt(11));
-  // console.log(path[0].innerHTML.charAt(12));
-  // console.log(path[0].innerHTML.charAt(13));
+  // console.log(path);
+  let roundPath = ''
+  let p1BattleTacticPath = ''
+  let p2BattleTacticPath = ''
+  let p1ScorePath = ''
+  let p2ScorePath = ''
   
-  // console.log(roundPath)
-  console.log(Number(roundPath))
+  if(path[0].id === 'next-round-btn' || path[0].id === 'finish-game-btn'){
+    roundPath = path[1].children[2].innerHTML.charAt(12);
+    
+    let p1Path = path[1].children[3]
+    p1ScorePath = Number(p1Path[0].value)
+    p1BattleTacticPath = p1Path[1].value
+    
+    let p2Path = path[1].children[4]
+    p2ScorePath = Number(p2Path[0].value)
+    p2BattleTacticPath = p2Path[1].value
+  }else {
+    roundPath = Number(path[0].innerHTML)
 
-  let p1Path = path[1].children[3]
-  let p1ScorePath = Number(p1Path[0].value)
-  let p1BattleTacticPath = p1Path[1].value
+    let playerPath = path[2].children[0].children[0]
 
-  let p2Path = path[1].children[4]
-  let p2ScorePath = Number(p2Path[0].value)
-  let p2BattleTacticPath = p2Path[1].value
-
+    let p1Path = playerPath.children[3]
+    p1ScorePath = Number(p1Path[0].value)
+    p1BattleTacticPath = p1Path[1].value
+    
+    let p2Path = playerPath.children[4]
+    p2ScorePath = Number(p2Path[0].value)
+    p2BattleTacticPath = p2Path[1].value
+  }
+  
   let roundInfo = {
     round : Number(roundPath),
     p1BattleTactic : p1BattleTacticPath,
@@ -373,6 +385,7 @@ const updateRound = (round) => {
     p2Score : p2ScorePath,
   }
 
+  console.log(`updateRound: `)
   console.log(roundInfo)
   
   axios
@@ -385,28 +398,30 @@ const updateRound = (round) => {
     })
 }
 
-const storePlayerInfo = (objInfo) => {
-  roundData = Object.assign(objInfo)
-  // console.log(roundData)
-}
+// const storePlayerInfo = (objInfo) => {
+//   roundData = Object.assign(objInfo)
+//   // console.log(roundData)
+// }
 
 const makeRounds = () => {
   axios
     .post('http://localhost:4004/api/start')
     .then((res) => {
+      console.log(`makeRounds: `)
       console.log(res.data)
     })
     .catch(errCallback)
 }
 
 const createBattleRoundCard = (e) => {
-  // console.log(e)
+  console.log(`createBattleRoundCard: `)
   const btnCheck = e.target.innerHTML
-  console.log(btnCheck)
+  // console.log(btnCheck)
   let round = btnCheck.charAt(12);
 
   if(btnCheck === 'Begin Game'){
-    clearRoundData(e);
+    console.log(`createBRC btnCheck: Begin Game`)
+    // clearRoundData(e);
     makeRounds();
     round = 1
     axios
@@ -415,7 +430,7 @@ const createBattleRoundCard = (e) => {
       displayRound(res.data);
     })
   }else{
-    console.log(roundData)
+    console.log(`createBRC else statement(round): ${round}`)
     updateRound(e);
     // let playerInfo = storePlayerInfo()
     axios
@@ -432,18 +447,18 @@ const createBattleRoundCard = (e) => {
 }
 
 const getBattleRound = (roundBtn) => {
-  // console.log(roundBtn.target.innerHTML);
+  console.log(`getBattleRound: `);
   let path = roundBtn.target.id
-  console.log(path)
   let round = roundBtn.target.innerHTML;
   if(path === 'fetch-data') {
+    console.log(`getBR path is 'fetch-data': `)
     axios
       .get(`http://localhost:4004/api/allrounds`)
       .then((res) => {
-        // console.log(res.data)
         showFetchedData(res.data)
       })
   }else {
+    console.log(`getBR else statement(roundBtn): ${roundBtn}`)
     updateRound(roundBtn)
     axios
       .get(`${baseURL}/${round}`)

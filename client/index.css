@@ -70,6 +70,7 @@ input[type=text] {
 input[type=number] {
   margin-left: .5rem;
   margin-right: .5rem;
+  width: fit-content;
   background-color: #2D0200;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.5rem;
@@ -80,7 +81,7 @@ input[type=number] {
   stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
-  max-height:fit-content;
+  
 }
 
 #get-p1-info {
@@ -140,7 +141,6 @@ button {
   text-shadow: 1px 1px 1px #AD7935,
                2px 2px 1px black;
   color :  #AD7935;
-  stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
   min-width: 5%;
@@ -183,35 +183,25 @@ button {
 
 .cmd-pt-card {
   width: fit-content;
-  /* justify-self: center; */
   margin: 1rem;
   padding: .5rem;
   background-color: #2D0200;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1rem;
-  text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
-  color :  #AD7935;
-  stroke: solid, black;
-  stroke-width: 3px;
-  text-align: center;
   min-width: 5%;
-  /* align-self: center; */
+  border: .25rem;
+  border-style: solid;
+  border-color:#AD7935;
 }
 
 #p1-cmd-pt-card {
   position: absolute;
-  top: 50vh;
-  left: 3vw;
-  font-size: 1.2rem;
+  top: 62vh;
+  left: 20vw;
 }
 
 #p2-cmd-pt-card {
   position: absolute;
-  top: 50vh;
-  right: 3vw;
-  font-size: 1.2rem;
+  top: 62vh;
+  right: 20vw;
 }
 
 .player-round-card {
@@ -223,23 +213,12 @@ button {
 }
 
 #score-totals {
-  display: block;
-  width: fit-content;
-  /* justify-self: center; */
-  margin: 1rem;
-  padding: .5rem;
-  background-color: #2D0200;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: .25rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
-  stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
   min-width: 5%;
-  /* justify-content: space-between; */
 }
 
 #p1-score-total {
@@ -258,14 +237,10 @@ button {
   font-size: 1.2rem;
 }
 
-/* .site-title {
-  font-family:  fantasy;
-  color : #AD7935;
-  text-align: center;
-  /* border: 1px solid #000000;
-  text-shadow: 3px 5px 3px rgba(7, 7, 7, 0.28);
-  } 
-*/
+#round-nav-btns {
+  display: flex;
+  justify-content: center;
+}
 
 
 
