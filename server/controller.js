@@ -6,7 +6,10 @@ const grandList = [`Defend What's Ours`, `Demonstration of Strength`, `No Place 
 
 const battleTacticList = [`Against the Odds`, `An Eye for an Eye`, `Barge Through Enemy Lines`,
                             `Desecrate their Lands`, `Gaining Momentum`, `Head-to-Head`, 
-                            `Outmuscle`, `This One's Mine!`]; 
+                            `Outmuscle`, `This One's Mine!`];
+                            
+let p1BTListGlobal = []
+let p2BTListGlobal = []
 
 
 let battleRoundList = [
@@ -36,15 +39,24 @@ const getArmyList = (req, res) => {
   res.status(200).send(armyList);
 }
 
+const getBattleTacticList = (playerArmy) => {
+  const filteredBattleTactic = armyInfo.filter((obj)=> {
+    return obj.armyName === playerArmy;
+  })
+  armyBattleTacticList = filteredBattleTactic[0].battleTactic
+  playerBattleTacticList = battleTacticList.concat(armyBattleTacticList)
+  return playerBattleTacticList
+}
+
 const playerSubmit = (req, res) => {
   let { playerName, playerArmy, playerGrand, player1 } = req.body;
-
+  
   const filteredGrand = armyInfo.filter((obj)=> {
     return obj.armyName === playerArmy;
   })
   armyGrandList = filteredGrand[0].grandStrat
   playerGrandList = grandList.concat(armyGrandList)
-
+  
   if(player1 == true) {
     battleRoundList[0].p1Name = playerName
     battleRoundList[0].p1Army = playerArmy
@@ -54,7 +66,7 @@ const playerSubmit = (req, res) => {
     battleRoundList[0].p2Army = playerArmy
     battleRoundList[0].p2GrandStrat = playerGrandList
   }
-
+  
   req.body.playerGrand = playerGrandList
   res.status(200).send(req.body)
 }
@@ -66,10 +78,12 @@ const confirmInfo = (req, res) => {
     battleRoundList[0].p1Name = playerName
     battleRoundList[0].p1Army = playerArmy
     battleRoundList[0].p1GrandStrat = playerGrand
+    p1BTListGlobal = getBattleTacticList(playerArmy)
   }else if(player1 == false) {
     battleRoundList[0].p2Name = playerName
     battleRoundList[0].p2Army = playerArmy
     battleRoundList[0].p2GrandStrat = playerGrand
+    p2BTListGlobal = getBattleTacticList(playerArmy)
   }
 
   res.status(200).send(req.body);
@@ -78,6 +92,16 @@ const confirmInfo = (req, res) => {
 const updateRoundData = (req, res) => { 
   let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
   console.log(`updateRoundData round = ${req.body.round}`)
+
+  const findP1BT = p1BTListGlobal.filter((battleTacticList)=> {
+    return battleTacticList !== p1BattleTactic;
+  })
+  p1BTListGlobal = findP1BT
+  const findP2BT = p2BTListGlobal.filter((battleTacticList)=> {
+    return battleTacticList !== p2BattleTactic;
+  })
+  p2BTListGlobal = findP2BT
+  
 
   let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
   battleRoundList[index] = { 
@@ -98,22 +122,14 @@ const updateRoundData = (req, res) => {
     p1GoesFirst : true 
   };
 
-  console.log(`update index: `)
-  console.log(battleRoundList[index])
-  console.log(`update p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
-  console.log(`update p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
+  // console.log(`update index: `)
+  // console.log(battleRoundList[index])
+  // console.log(`update p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
+  // console.log(`update p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
   
   res.status(200).send(battleRoundList[index]);
 }
 
-const getBattleTacticList = (playerArmy) => {
-  const filteredBattleTactic = armyInfo.filter((obj)=> {
-    return obj.armyName === playerArmy;
-  })
-  armyBattleTacticList = filteredBattleTactic[0].battleTactic
-  playerBattleTacticList = battleTacticList.concat(armyBattleTacticList)
-  return playerBattleTacticList
-}
 
 const createRoundCard = (req, res) => {
   let {round} = req.body
@@ -132,8 +148,8 @@ const createRoundCard = (req, res) => {
         p2Army : battleRoundList[index].p2Army, 
         p1GrandStrat : battleRoundList[index].p1GrandStrat,                   
         p2GrandStrat : battleRoundList[index].p2GrandStrat, 
-        p1BattleTactic : battleRoundList[index].p1BattleTactic = p1BattleTacticList, 
-        p2BattleTactic : battleRoundList[index].p2BattleTactic = p2BattleTacticList,                  
+        p1BattleTactic : battleRoundList[index].p1BattleTactic = p1BTListGlobal, 
+        p2BattleTactic : battleRoundList[index].p2BattleTactic = p2BTListGlobal,                  
         battlePlan : battleRoundList[index].battlePlan, 
         p1Score : battleRoundList[index].p1Score,
         p2Score : battleRoundList[index].p1Score, 
@@ -142,10 +158,10 @@ const createRoundCard = (req, res) => {
         p1GoesFirst : true 
       };
       
-      console.log(`create index: `)
-      console.log(battleRoundList[index])
-      console.log(`create p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
-      console.log(`create p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
+      // console.log(`create index: `)
+      // console.log(battleRoundList[index])
+      // console.log(`create p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
+      // console.log(`create p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
 
       res.status(200).send(battleRoundList[index])
     }else{
