@@ -31,20 +31,6 @@ const fetchedData = document.getElementById('fetch-data-section')
 fetchedData.hidden = false;
 
 
-// let roundData = {
-//   p1Name : "Player 1",
-//   p2Name : "Player 2",
-//   p1Army : "P1 Army",
-//   p2Army : "P2 Army",
-//   p1GrandStrat : "P1 Grand",
-//   p2GrandStrat : "P2 Grand",
-//   battlePlan : "Battle Plan 1",
-//   p1TotalScore : 0,
-//   p2TotalScore : 0,
-// }
-
-
-
 const armySelect = (armyList, armyClick) => {
   for(let i = 0; i < armyList.length; i++) {
     let option = document.createElement('option');
@@ -80,11 +66,9 @@ const battleTacticSelect = (battleTacticList, parent) => {
 }
 
 const submitForm = (e) => {
-  // console.log('SubmitForm')
   const eventPath = e.composedPath()
   let btnArr = eventPath[1]
 
-  
   let playerInfo = {
     playerName : btnArr[0].value,
     playerArmy : btnArr[1].value,
@@ -154,8 +138,6 @@ const confirmInfo = (e) => {
      playerInfo.playerName = 'Player 2';
     }
   }
-  console.log('This is the confirmInfo:')
-  console.log(playerInfo)
 
   axios
     .put(baseURL, playerInfo)
@@ -167,7 +149,7 @@ const confirmInfo = (e) => {
 
 const promptBattle = (bodyObj) =>{
   let { playerName, playerArmy, playerGrand, player1 } = bodyObj;
-  console.log(playerName)
+  
   const promptSection = document.createElement('div')
   const promptText = document.createElement('p')
   promptSection.className = 'prompt-section'
@@ -187,13 +169,11 @@ const promptBattle = (bodyObj) =>{
     promptSection.append(promptText);
     p1TotalLabel.innerHTML = `${playerName}'s Total Score:`
     p1Msg = true;
-    console.log(p1Msg)
   }else if(player1 == false) {
     p2Form.replaceChildren(promptSection)
     promptSection.append(promptText);
     p2TotalLabel.innerHTML = `${playerName}'s Total Score:`
     p2Msg = true;
-    console.log(p2Msg)
   }else {
     console.log('Something went wrong prompting the messages')
   }
@@ -219,11 +199,7 @@ const displayRound = (bodyObj) => {
   p1ScoreTotalCard.hidden = false;
   p2ScoreTotalCard.hidden = false;
   
-
-console.log(`The P1TotalScore: ${p1TotalScore}`)
-console.log(`The P2TotalScore: ${p2TotalScore}`)
-
-const nextRound = round + 1
+  const nextRound = round + 1
 
 /// create battle round card and buttons
   const battleCard = document.createElement('div')
@@ -289,20 +265,14 @@ const nextRound = round + 1
 
   battleTacticSelect(p2BattleTactic, p2BattleTacticSelect)
   
-  
+/// append elements onto round cards
   p1RoundCard.append(p1ScoreLabel, p1ScoreInput, p1BattleTacticLabel, p1BattleTacticSelect);
-  // p1RoundCard.append(p1ScoreTotalCard)
   p2RoundCard.append(p2ScoreLabel, p2ScoreInput, p2BattleTacticLabel, p2BattleTacticSelect);
-  // p2RoundCard.prepend(p2ScoreTotalCard)
-  
-
-  
+ 
   battleCard.append(p1RoundCard, p2RoundCard)
-  // battleCard.prepend(p2RoundCard)
+
   createCmdPtCard(p1Name, 'p1', battleCard)
   createCmdPtCard(p2Name, 'p2', battleCard)
-  // battleCard.prepend(p1ScoreTotalCard, p2ScoreTotalCard)
-
   
 /// update score totals
   p1ScoreInput.addEventListener('input', (e) => {
@@ -320,7 +290,6 @@ const nextRound = round + 1
     roundBtnArr[i].hidden = false
   }
 
-
   playerForms.replaceChildren(battleCard);
   if(round != 5){
     battleCard.append(nextRoundBtn)
@@ -330,16 +299,11 @@ const nextRound = round + 1
     finishGameBtn.addEventListener('click', createBattleRoundCard)
   }
   
-  
   battleCard.append(deleteRoundBtn)
   deleteRoundBtn.addEventListener('click', deleteRound)
-  
 }
 
-// const priorityClick = (player) => player = true;
-
 const clearRoundData = (event) => {
-  // console.log(event.target)
   let path = event.target.id
   if(path === 'clear-data'){
     console.log('Front-end clearing data..')
@@ -352,7 +316,6 @@ const clearRoundData = (event) => {
       })
     }else{
       alert(`There's nothing left to clear!`)
-      console.log(`There's nothing left to clear!`)
     }
   }else {
     axios
@@ -366,7 +329,6 @@ const clearRoundData = (event) => {
 const updateRound = (round) => {
   path = round.composedPath()
 
-  // console.log(path);
   let roundPath = ''
   let p1BattleTacticPath = ''
   let p2BattleTacticPath = ''
@@ -406,9 +368,6 @@ const updateRound = (round) => {
     p1Score : p1ScorePath,
     p2Score : p2ScorePath,
   }
-
-  console.log(`updateRound: `)
-  console.log(roundInfo)
   
   axios
     .put(`${baseURL}/${roundPath}`, roundInfo)
@@ -419,11 +378,6 @@ const updateRound = (round) => {
       // let newRoundData = Object.assign(roundData, res.data);
     })
 }
-
-// const storePlayerInfo = (objInfo) => {
-//   roundData = Object.assign(objInfo)
-//   // console.log(roundData)
-// }
 
 const makeRounds = () => {
   axios
@@ -438,12 +392,9 @@ const makeRounds = () => {
 const createBattleRoundCard = (e) => {
   console.log(`createBattleRoundCard: `)
   const btnCheck = e.target.innerHTML
-  // console.log(btnCheck)
   let round = btnCheck.charAt(12);
 
   if(btnCheck === 'Begin Game'){
-    console.log(`createBRC btnCheck: Begin Game`)
-    // clearRoundData(e);
     makeRounds();
     round = 1
     axios
@@ -452,13 +403,10 @@ const createBattleRoundCard = (e) => {
       displayRound(res.data);
     })
   }else{
-    console.log(`createBRC else statement(round): ${round}`)
     updateRound(e);
-    // let playerInfo = storePlayerInfo()
     axios
     .put(`http://localhost:4004/api/battleround`, {round})
     .then((res) => {
-      // console.log(round.target.textContent)
       if((e.target.textContent) == 'Finish Game'){
         displayResults(res.data)
       }else{
@@ -469,18 +417,15 @@ const createBattleRoundCard = (e) => {
 }
 
 const getBattleRound = (roundBtn) => {
-  console.log(`getBattleRound: `);
   let path = roundBtn.target.id
   let round = roundBtn.target.innerHTML;
   if(path === 'fetch-data') {
-    console.log(`getBR path is 'fetch-data': `)
     axios
       .get(`http://localhost:4004/api/allrounds`)
       .then((res) => {
         showFetchedData(res.data)
       })
   }else {
-    console.log(`getBR else statement(roundBtn): ${roundBtn}`)
     updateRound(roundBtn)
     axios
       .get(`${baseURL}/${round}`)
@@ -491,8 +436,6 @@ const getBattleRound = (roundBtn) => {
 }
 
 const showFetchedData = (objArr) => {
-  objArr.forEach(element => console.log(element))
-
   const dataTable = document.createElement('table')
   dataTable.id = 'data-table'
   
@@ -520,14 +463,10 @@ const showFetchedData = (objArr) => {
   }
 }
 
-
-
 const deleteRound = (currRound) => {
   let thisRound = currRound.target.innerHTML
-  // console.log(thisRound.charAt(13))
   let round = thisRound.charAt(13);
   roundBtnArr = [round1Btn, round2Btn, round3Btn, round4Btn, round5Btn]
-  // roundBtnArr[round-1].hidden = true;
 
   axios
     .delete(`${baseURL}/${round}`)
@@ -535,7 +474,6 @@ const deleteRound = (currRound) => {
       displayRound(res.data)
     })
 }
-
 
 const displayResults = (bodyObj) => {
   let { p1Name, p2Name, p1Army, p2Army, p1GrandStrat, 
@@ -616,14 +554,9 @@ const displayResults = (bodyObj) => {
   resultsPage.append(winnerText)
 }
 
-
-
-
-
 const displayPlayerInfo = (bodyObj) => {
   let { playerName, playerArmy, playerGrand, player1 } = bodyObj;
-  console.log(bodyObj)
-  // playerGrand.forEach(element => console.log(element))
+  
   const playerText = document.createElement('p')
   const grandOption = document.createElement('select')
   const confirmBtn = document.createElement('button')
@@ -656,8 +589,6 @@ const displayPlayerInfo = (bodyObj) => {
   }
 }
 
-// Command Point Handler
-
 const createCmdPtCard = (name, player, roundCard) => {
   const cmdPtCard = document.createElement('div')
   const cmdPtLabel = document.createElement('h3')
@@ -678,10 +609,8 @@ const createCmdPtCard = (name, player, roundCard) => {
   minusBtn.innerHTML = '-'
   resetBtn.innerHTML = "Reset"
   
-  
   roundCard.prepend(cmdPtCard);
   cmdPtCard.append(cmdPtLabel, cmdPts, minusBtn, resetBtn, plusBtn);
-  
   
   let currCmdPts = 0
 
@@ -711,25 +640,20 @@ const createCmdPtCard = (name, player, roundCard) => {
   plusBtn.addEventListener('click', increaseCmdPts);
   minusBtn.addEventListener('click', decreaseCmdPts);
   resetBtn.addEventListener('click', resetCmdPts);
-
 }
+  
+p1ArmySelect.addEventListener('click', selectArmy);
+p2ArmySelect.addEventListener('click', selectArmy);
 
-
-
-      
-    
-    p1ArmySelect.addEventListener('click', selectArmy);
-    p2ArmySelect.addEventListener('click', selectArmy);
-
-    clearDataBtn.addEventListener('click', clearRoundData);
-    fetchDataBtn.addEventListener('click', getBattleRound);
+clearDataBtn.addEventListener('click', clearRoundData);
+fetchDataBtn.addEventListener('click', getBattleRound);
     
 
-    round1Btn.addEventListener('click', getBattleRound);
-    round2Btn.addEventListener('click', getBattleRound);
-    round3Btn.addEventListener('click', getBattleRound);
-    round4Btn.addEventListener('click', getBattleRound);
-    round5Btn.addEventListener('click', getBattleRound);
+round1Btn.addEventListener('click', getBattleRound);
+round2Btn.addEventListener('click', getBattleRound);
+round3Btn.addEventListener('click', getBattleRound);
+round4Btn.addEventListener('click', getBattleRound);
+round5Btn.addEventListener('click', getBattleRound);
 
 /* 
 

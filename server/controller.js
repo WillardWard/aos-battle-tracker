@@ -32,7 +32,6 @@ let battleRoundList = [
 }
 ]
 
-
 const getArmyList = (req, res) => {
   const armyList = [];
   armyInfo.forEach(element => armyList.push(element.armyName))
@@ -91,7 +90,6 @@ const confirmInfo = (req, res) => {
 
 const updateRoundData = (req, res) => { 
   let { round, p1BattleTactic, p2BattleTactic, p1Score, p2Score } = req.body;
-  console.log(`updateRoundData round = ${req.body.round}`)
 
   const findP1BT = p1BTListGlobal.filter((battleTacticList)=> {
     return battleTacticList !== p1BattleTactic;
@@ -102,7 +100,6 @@ const updateRoundData = (req, res) => {
   })
   p2BTListGlobal = findP2BT
   
-
   let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
   battleRoundList[index] = { 
     round : round, 
@@ -121,57 +118,42 @@ const updateRoundData = (req, res) => {
     p2TotalScore : (battleRoundList[index-1].p2TotalScore) + p2Score,
     p1GoesFirst : true 
   };
-
-  // console.log(`update index: `)
-  // console.log(battleRoundList[index])
-  // console.log(`update p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
-  // console.log(`update p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
-  
+ 
   res.status(200).send(battleRoundList[index]);
 }
-
 
 const createRoundCard = (req, res) => {
   let {round} = req.body
   round = Number(round)
-  console.log(`createRoundCard round = ${round}`)
 
-    let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
-    if(index > 0 && index <= 5){
-      let p1BattleTacticList = getBattleTacticList(battleRoundList[index].p1Army);
-      let p2BattleTacticList = getBattleTacticList(battleRoundList[index].p2Army);
-      battleRoundList[index] = { 
-        round : round, 
-        p1Name : battleRoundList[index].p1Name, 
-        p2Name : battleRoundList[index].p2Name, 
-        p1Army : battleRoundList[index].p1Army, 
-        p2Army : battleRoundList[index].p2Army, 
-        p1GrandStrat : battleRoundList[index].p1GrandStrat,                   
-        p2GrandStrat : battleRoundList[index].p2GrandStrat, 
-        p1BattleTactic : battleRoundList[index].p1BattleTactic = p1BTListGlobal, 
-        p2BattleTactic : battleRoundList[index].p2BattleTactic = p2BTListGlobal,                  
-        battlePlan : battleRoundList[index].battlePlan, 
-        p1Score : battleRoundList[index].p1Score,
-        p2Score : battleRoundList[index].p1Score, 
-        p1TotalScore : battleRoundList[index-1].p1TotalScore,
-        p2TotalScore : battleRoundList[index-1].p2TotalScore,
-        p1GoesFirst : true 
-      };
-      
-      // console.log(`create index: `)
-      // console.log(battleRoundList[index])
-      // console.log(`create p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
-      // console.log(`create p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
-
-      res.status(200).send(battleRoundList[index])
-    }else{
-      res.status(200).send(battleRoundList[5]);
-    }
+  let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
+  if(index > 0 && index <= 5){
+    battleRoundList[index] = { 
+      round : round, 
+      p1Name : battleRoundList[index].p1Name, 
+      p2Name : battleRoundList[index].p2Name, 
+      p1Army : battleRoundList[index].p1Army, 
+      p2Army : battleRoundList[index].p2Army, 
+      p1GrandStrat : battleRoundList[index].p1GrandStrat,                   
+      p2GrandStrat : battleRoundList[index].p2GrandStrat, 
+      p1BattleTactic : battleRoundList[index].p1BattleTactic = p1BTListGlobal, 
+      p2BattleTactic : battleRoundList[index].p2BattleTactic = p2BTListGlobal,                  
+      battlePlan : battleRoundList[index].battlePlan, 
+      p1Score : battleRoundList[index].p1Score,
+      p2Score : battleRoundList[index].p1Score, 
+      p1TotalScore : battleRoundList[index-1].p1TotalScore,
+      p2TotalScore : battleRoundList[index-1].p2TotalScore,
+      p1GoesFirst : true 
+    };
+    
+    res.status(200).send(battleRoundList[index])
+  }else{
+    res.status(200).send(battleRoundList[5]);
+  }
 }
 
 const getBattleRound = (req, res) => {
   let {round} = req.params
-  console.log(battleRoundList[round])
   res.status(200).send(battleRoundList[round])
 }
 
@@ -211,7 +193,6 @@ const getResults = (req, res) => {
 const clearRoundData = (req, res) => {
   console.log('Server clearing data')
   battleRoundList.splice(1);
-  // makeRounds();
   battleRoundList.forEach(element => console.log(element))
   res.status(200)
 }
@@ -241,10 +222,7 @@ const makeRounds = (req, res) => {
       p1GoesFirst : true,
     })
   }
-  console.log(`makeRounds: `)
-  battleRoundList.forEach(element => console.log(element))
 }
-
 
 module.exports = {
   getArmyList,
