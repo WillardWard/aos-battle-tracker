@@ -95,7 +95,7 @@ const updateRoundData = (req, res) => {
   };
 
   console.log(`update index: `)
-  console.log(`${battleRoundList[index]}`)
+  console.log(battleRoundList[index])
   console.log(`update p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
   console.log(`update p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
   
@@ -128,7 +128,7 @@ const createRoundCard = (req, res) => {
       };
       
       console.log(`create index: `)
-      console.log(`${battleRoundList[index]}`)
+      console.log(battleRoundList[index])
       console.log(`create p1TotalScore: ${battleRoundList[index].p1TotalScore}`)
       console.log(`create p2TotalScore: ${battleRoundList[index].p2TotalScore}`)
 

@@ -363,6 +363,8 @@ const updateRound = (round) => {
     let p2Path = path[1].children[4]
     p2ScorePath = Number(p2Path[0].value)
     p2BattleTacticPath = p2Path[1].value
+  }else if(path[0].id){
+
   }else {
     roundPath = Number(path[0].innerHTML)
 

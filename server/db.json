@@ -1,30 +1,47 @@
 [
   {
     "armyName" : "Beasts of Chaos",
-    "grandStrat" : ["Protect the Herdstone"]
+    "grandStrat" : ["Protect the Herdstone"],
+    "battleTactic" : ["Fury of the Wild", 
+                      "In the Shadow of the Herdstone", 
+                      "Wrath of the Warped Wilds"]
   },
   {
     "armyName" : "Blades of Khorne",
-    "grandStrat" : ["The Blood Legions March"]
+    "grandStrat" : ["The Blood Legions March"],
+    "battleTactic" : ["Blood for the Altar", 
+                      "Slay the Sorcerer",
+                      "The Trial of Skulls"]
   },
   {
     "armyName" : "Disciples of Tzeentch",
-    "grandStrat" : []
+    "grandStrat" : [],
+    "battleTactic" : []
   },
   {
     "armyName" : "Hedonites of Slaanesh",
-    "grandStrat" : ["Coveted Riches"]
+    "grandStrat" : ["Coveted Riches"],
+    "battleTactic" : ["An Enrapturing Blur", 
+                      "Death by a Thousand Cuts", 
+                      "The Grand Feast"]
   },
   {
     "armyName" : "Legion of the First Prince",
-    "grandStrat" : []
+    "grandStrat" : [],
+    "battleTactic" : []
   },
   {
     "armyName" : "Maggotkin of Nurgle",
     "grandStrat" : ["Blessed Desecration",
                     "Corrupt Arcane Nexus",
                     "Spread Rampant Disease",
-                    "Tend the Garden"]
+                    "Tend the Garden"],
+    "battleTactic" : ["Feed the Maggots", 
+                      "Gifts of Nurgle",
+                      "Glory to the Grandfather!",
+                      "Nurture the Gnarlmaw",
+                      "Sudden Domination",
+                      "The Droning"]
   },
   {
     "armyName" : "Skaven",
@@ -32,38 +49,61 @@
                     "Clawmasters",
                     "Masters of Execution",
                     "Shapers of Beast-flesh",
-                    "Warpstone Weaponmasters"]
+                    "Warpstone Weaponmasters"],
+    "battleTactic" : ["Crescendo of the Diseased Choir",
+                      "Deathmark",
+                      "Fire-fire! More-more!",
+                      "Restore the Beast"]
   },
   {
     "armyName" : "Slaves to Darkness",
-    "grandStrat" : ["Dominating Presence"]
+    "grandStrat" : ["Dominating Presence"],
+    "battleTactic" : ["In Thrall to Chaos",
+                      "Lust for Power"]
   },
   {
     "armyName" : "Flesh-Eater Courts",
-    "grandStrat" : ["Growing Kingdom"]
+    "grandStrat" : ["Growing Kingdom"],
+    "battleTactic" : ["Screamed to Death",
+                      "The Royal Hunt",
+                      "United Court"]
   },
   {
     "armyName" : "Nighthaunt",
     "grandStrat" : ["A Soul to Claim",
                     "Dismantle the Brave",
                     "Feed on Terror",
-                    "Fright or Flight"]
+                    "Fright or Flight"],
+    "battleTactic" : ["Ceaseless Nightmares",
+                      "Death by a Thousand Cuts",
+                      "Mass Panic",
+                      "One Stop, No Return",
+                      "Overwhelmed with Dread",
+                      "Tides of Terror"]
   },
   {
     "armyName" : "Ossiarch Bonereapers",
-    "grandStrat" : ["Unrelenting Efficiency"]
+    "grandStrat" : ["Unrelenting Efficiency"],
+    "battleTactic" : ["The Tithe Demands",
+                      "Trample the Defiant",
+                      "Unfeeling Recursion"]
   },
   {
     "armyName" : "Soulblight Gravelords",
-    "grandStrat" : ["Lust for Domination"]
+    "grandStrat" : ["Lust for Domination"],
+    "battleTactic" : ["Callous Overlord",
+                      "Lust for Blood",
+                      "Unstoppable Armies"]
   },
   {
     "armyName" : "Gloomspite Gitz",
-    "grandStrat" : []
+    "grandStrat" : [],
+    "battleTactic" : []
   },
   {
     "armyName" : "Ogor Mawtribes",
-    "grandStrat" : []
+    "grandStrat" : [],
+    "battleTactic" : []
   },
   {
     "armyName" : "Orruk Warclans",
@@ -71,60 +111,106 @@
                     "Get Dem Bones!",
                     "Krump 'Em All!",
                     "Show 'Em Who's Boss!",
-                    "Waaagh!"]
+                    "Waaagh!"],
+    "battleTactic" : ["Destroyer of Empires",
+                      "Kill Da Big 'Un!",
+                      "Squish Da Puny Gitz",
+                      "Take Dat, Ya Suckers!",
+                      "Time to Get Stuck In!",
+                      "Wait For It, Ladz..."]
   },
   {
     "armyName" : "Sons of Behemat",
-    "grandStrat" : ["Make the Lands Tremble!"]
+    "grandStrat" : ["Make the Lands Tremble!"],
+    "battleTactic" : ["Manskittles",
+                      "Wrecking Crew",
+                      "That's Mine!"]
   },
   {
     "armyName" : "Cities of Sigmar",
-    "grandStrat" : ["Mighty Beachhead"]
+    "grandStrat" : ["Mighty Beachhead"],
+    "battleTactic" : ["Banners Held High",
+                      "Sanctify"]
   },
   {
     "armyName" : "Daughters of Khaine",
     "grandStrat" : ["Bloodbath",
                     "Bloodthirsty Zealots",
                     "Conquered in the Name of Khaine",
-                    "Naught But Destruction"]
+                    "Naught But Destruction"],
+    "battleTactic" : ["Clash of Arms",
+                      "Cruel Delight",
+                      "Executioner's Cult",
+                      "Hatred of Chaos",
+                      "Tide of Blades",
+                      "Unexpected Attack"]
   },
   {
     "armyName" : "Fyreslayers",
     "grandStrat" : ["Defend the Lodge",
                     "Guarded Lineage",
                     "Masters of the Forge",
-                    "Oath-takers and Skull-breakers"]
+                    "Oath-takers and Skull-breakers"],
+    "battleTactic" : ["An Honorable Death",
+                      "An Ignominious Death",
+                      "Beastslayer",
+                      "Grimnir Knows No Mercy",
+                      "Seize by Force",
+                      "Settle a Grudge"]
   },
   {
     "armyName" : "Idoneth Deepkin",
     "grandStrat" : ["Akhelian Pursuit",
                     "Dominion of the Deep Ones",
                     "Namarti Assault",
-                    "The Creeping Gloomtide"]
+                    "The Creeping Gloomtide"],
+    "battleTactic" : ["Assassins of the High Tide",
+                      "Deny Trespassers",
+                      "Isharann Defiance",
+                      "Predators of the Deep",
+                      "Revenge of the Namarti",
+                      "Trapped in the Undercurrents"]
   },
   {
     "armyName" : "Kharadron Overlords",
-    "grandStrat" : ["Spend Shares to Make Shares"]
+    "grandStrat" : ["Spend Shares to Make Shares"],
+    "battleTactic" : ["Bombing Run",
+                      "Boots on the Ground",
+                      "Mobilise the Fleet"]
   },
   {
     "armyName" : "Lumineth Realm-lords",
-    "grandStrat" : []
+    "grandStrat" : [],
+    "battleTactic" : []
   },
   {
     "armyName" : "Seraphon",
     "grandStrat" : ["Continuous Expansion",
-                    "The Astromatrix"]
+                    "The Astromatrix"],
+    "battleTactic" : ["Might of the Starborne",
+                      "Stampede of Scales"]
   },
   {
     "armyName" : "Stormcast Eternals",
     "grandStrat" : ["Draconith Defiance",
                     "Pillars of Victory",
-                    "Sacred Charge"]
+                    "Sacred Charge"],
+    "battleTactic" : ["A Matter of Honour",
+                      "Draconith Destruction",
+                      "Hammerstrike Assault",
+                      "Lightning-shattered Morale",
+                      "No Challenge Too Great",
+                      "Pioneers of the Realms"]
   },
   {
     "armyName" : "Sylvaneth",
     "grandStrat" : ["Chorus of the Woodlands",
                     "The Roots of Victory",
-                    "Vengeance and Spite"]
+                    "Vengeance and Spite"],
+    "battleTactic" : ["Balance the Cycle",
+                      "Eradicate Trespassers",
+                      "Harness the Spirit Paths",
+                      "March of the Forest Lords",
+                      "Unleash Ghyran's Wrath"]
   }
 ]
