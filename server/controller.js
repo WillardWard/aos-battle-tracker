@@ -1,8 +1,12 @@
 const armyInfo = require('./db.json');
 const {armyName, grandStrat} = armyInfo;
 
-let grandList = [`Defend What's Ours`, `Demonstration of Strength`, `No Place for the Weak`, 
+const grandList = [`Defend What's Ours`, `Demonstration of Strength`, `No Place for the Weak`, 
                       `Show of Dominance`, `Take What's Theirs`, `Tame the Land`];
+
+const battleTacticList = [`Against the Odds`, `An Eye for an Eye`, `Barge Through Enemy Lines`,
+                            `Desecrate their Lands`, `Gaining Momentum`, `Head-to-Head`, 
+                            `Outmuscle`, `This One's Mine!`]; 
 
 
 let battleRoundList = [
@@ -102,13 +106,24 @@ const updateRoundData = (req, res) => {
   res.status(200).send(battleRoundList[index]);
 }
 
+const getBattleTacticList = (playerArmy) => {
+  const filteredBattleTactic = armyInfo.filter((obj)=> {
+    return obj.armyName === playerArmy;
+  })
+  armyBattleTacticList = filteredBattleTactic[0].battleTactic
+  playerBattleTacticList = battleTacticList.concat(armyBattleTacticList)
+  return playerBattleTacticList
+}
+
 const createRoundCard = (req, res) => {
   let {round} = req.body
   round = Number(round)
   console.log(`createRoundCard round = ${round}`)
-  
+
     let index = battleRoundList.findIndex(elem => elem.round === +req.body.round)
     if(index > 0 && index <= 5){
+      let p1BattleTacticList = getBattleTacticList(battleRoundList[index].p1Army);
+      let p2BattleTacticList = getBattleTacticList(battleRoundList[index].p2Army);
       battleRoundList[index] = { 
         round : round, 
         p1Name : battleRoundList[index].p1Name, 
@@ -117,8 +132,8 @@ const createRoundCard = (req, res) => {
         p2Army : battleRoundList[index].p2Army, 
         p1GrandStrat : battleRoundList[index].p1GrandStrat,                   
         p2GrandStrat : battleRoundList[index].p2GrandStrat, 
-        p1BattleTactic : battleRoundList[index].p1BattleTactic, 
-        p2BattleTactic : battleRoundList[index].p2BattleTactic,                  
+        p1BattleTactic : battleRoundList[index].p1BattleTactic = p1BattleTacticList, 
+        p2BattleTactic : battleRoundList[index].p2BattleTactic = p2BattleTacticList,                  
         battlePlan : battleRoundList[index].battlePlan, 
         p1Score : battleRoundList[index].p1Score,
         p2Score : battleRoundList[index].p1Score, 

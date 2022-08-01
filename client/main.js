@@ -63,6 +63,15 @@ const grandSelect = (grandList, parent) => {
   }
 }
 
+const battleTacticSelect = (battleTacticList, parent) => {
+  for(let i = 0; i < battleTacticList.length; i++) {
+    let option = document.createElement('option');
+    option.value = battleTacticList[i];
+    option.text = battleTacticList[i];
+    parent.appendChild(option)
+  }
+}
+
 const submitForm = (e) => {
   // console.log('SubmitForm')
   const eventPath = e.composedPath()
@@ -247,7 +256,9 @@ const nextRound = round + 1
   p1BattleTacticLabel.htmlFor = 'p1-battle-tactic-select'
 
   p1ScoreLabel.innerHTML = `${p1Name}'s Score:`
-  p1BattleTacticLabel.innerHTML = `${p1Name}'s BattleTactic:`
+  p1BattleTacticLabel.innerHTML = `${p1Army} BattleTactic:`
+
+  battleTacticSelect(p1BattleTactic, p1BattleTacticSelect)
 
 /// create p2 round card
   const p2RoundCard = document.createElement('form')
@@ -267,7 +278,9 @@ const nextRound = round + 1
   p2BattleTacticLabel.htmlFor = 'p2-battle-tactic-select'
 
   p2ScoreLabel.innerHTML = `${p2Name}'s Score:`
-  p2BattleTacticLabel.innerHTML = `${p2Name}'s BattleTactic:`
+  p2BattleTacticLabel.innerHTML = `${p2Army} BattleTactic:`
+
+  battleTacticSelect(p2BattleTactic, p2BattleTacticSelect)
   
   
   p1RoundCard.append(p1ScoreLabel, p1ScoreInput, p1BattleTacticLabel, p1BattleTacticSelect);
