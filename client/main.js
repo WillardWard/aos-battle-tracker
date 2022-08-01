@@ -64,10 +64,17 @@ const grandSelect = (grandList, parent) => {
 }
 
 const battleTacticSelect = (battleTacticList, parent) => {
-  for(let i = 0; i < battleTacticList.length; i++) {
-    let option = document.createElement('option');
-    option.value = battleTacticList[i];
-    option.text = battleTacticList[i];
+  if(Array.isArray(battleTacticList)){
+    for(let i = 0; i < battleTacticList.length; i++) {
+      let option = document.createElement('option');
+      option.value = battleTacticList[i];
+      option.text = battleTacticList[i];
+      parent.appendChild(option)
+    }
+  }else{
+    let option = document.createElement('option')
+    option.value = battleTacticList
+    option.text = battleTacticList
     parent.appendChild(option)
   }
 }
