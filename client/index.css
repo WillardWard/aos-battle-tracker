@@ -1,5 +1,8 @@
 body {
-  background-image: url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/main-menu-bg.png'), url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/red-texture.png');
+  position: relative;
+  background-image: 
+  url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/main-menu-bg.png'), 
+  url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/red-texture.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -14,10 +17,8 @@ header {
 
 #player-forms {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
@@ -58,30 +59,30 @@ input[type=text] {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
   max-height:fit-content;
+  border-color: #AD7935;
 }
 
 input[type=number] {
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
   margin-left: .5rem;
   margin-right: .5rem;
-  width: fit-content;
+  width: 4rem;
   background-color: #2D0200;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.5rem;
+  color: #AD7935;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
-  color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
-  
+  border-color: #AD7935;
 }
 
 #get-p1-info {
@@ -91,8 +92,6 @@ input[type=number] {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
@@ -108,8 +107,6 @@ input[type=number] {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
@@ -123,12 +120,11 @@ select {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke: solid, black;
   stroke-width: 3px;
   text-align: center;
+  border-color: #AD7935;
 }
 
 button {
@@ -138,13 +134,12 @@ button {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1rem;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #AD7935,
-               2px 2px 1px black;
   color :  #AD7935;
   stroke-width: 3px;
   text-align: center;
   min-width: 5%;
   align-self: center;
+  border-color: #AD7935;
 }
 
 #clear-data {
@@ -206,6 +201,10 @@ button {
 
 .player-round-card {
   font-size: 2rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  
 }
 
 .battle-card {
@@ -241,58 +240,3 @@ button {
   display: flex;
   justify-content: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* button {
-  display: inline-flex; 
-  overflow: hidden; 
-  position: relative; 
-  padding-top: 1rem;
-  padding-bottom: 1rem; 
-  padding-left: 3rem;
-  padding-right: 3rem; 
-  border : none;
-  background-position: center;
-  background-image: url('https://ageofsigmar.com/wp-content/themes/gw-age-of-sigmar/assets/images/button-bg.png');
-  background-repeat: no-repeat; 
-  background-size: contain; 
-  color: #ffffff; 
-  text-align: center; 
-  text-transform: uppercase; 
-  justify-content: center; 
-  align-items: center;
-  
-  @media (min-width: 1024px) { 
-    padding-left: 3.5rem;
-    padding-right: 3.5rem; 
-  }
-} */
